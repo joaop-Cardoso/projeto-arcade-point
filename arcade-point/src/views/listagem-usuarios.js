@@ -95,7 +95,6 @@ function ListagemUsuarios() {
                       <td>{dado.nome}</td>
                       <td>{dado.cpf}</td>
                       <td>{dado.email}</td>
-                      <td>{dado.cpf}</td>
                       <td>{dado.tel}</td>
                       <td>{dado.cep}</td>
                       <td>{dado.uf}</td>
