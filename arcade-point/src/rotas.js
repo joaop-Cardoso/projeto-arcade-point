@@ -11,7 +11,7 @@ function Rotas(props) {
   return (
     <BrowserRouter>
       <Routes>
-        <Route path='/login' element={<Login />} />
+        {/* <Route path='/login' element={<Login />} /> */}
         <Route
           path='/cadastro-usuarios/:idParam?'
           element={<CadastroUsuario />}

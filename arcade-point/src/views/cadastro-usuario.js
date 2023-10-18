@@ -20,80 +20,89 @@ function CadastroUsuario() {
 
   const baseURL = `${BASE_URL}/usuarios`;
 
+  // EMAIL	TELEFONE	CEP	UF	CIDADE	COMPLEMENTO	NUMERO
+
   const [id, setId] = useState('');
-  const [login, setLogin] = useState('');
   const [cpf, setCpf] = useState('');
+  const [nome, setNome] = useState('');
+  const [email, setEmail] = useState('');
+  const [tel, setTel] = useState('');
+  const [cep, setCep] = useState('');
+  const [uf, setUf] = useState('');
+  const [cidade, setCidade] = useState('');
+  const [complemento, setComplemento] = useState('');
+  const [numero, setNumero] = useState('');
   const [senha, setSenha] = useState('');
   const [senhaRepeticao, setSenhaRepeticao] = useState('');
   const [admin, setAdmin] = useState(false);
 
   const [dados, setDados] = useState([]);
 
-  function inicializar() {
-    if (idParam == null) {
-      setId('');
-      setLogin('');
-      setCpf('');
-      setSenha('');
-      setSenhaRepeticao('');
-      setAdmin(false);
-    } else {
-      setId(dados.id);
-      setLogin(dados.login);
-      setCpf(dados.cpf);
-      setSenha('');
-      setSenhaRepeticao('');
-      setAdmin(dados.admin);
-    }
-  }
+  // function inicializar() {
+  //   if (idParam == null) {
+  //     setId('');
+  //     setNome('');
+  //     setCpf('');
+  //     setSenha('');
+  //     setSenhaRepeticao('');
+  //     setAdmin(false);
+  //   } else {
+  //     setId(dados.id);
+  //     setNome(dados.login);
+  //     setCpf(dados.cpf);
+  //     setSenha('');
+  //     setSenhaRepeticao('');
+  //     setAdmin(dados.admin);
+  //   }
+  // }
 
-  async function salvar() {
-    let data = { id, login, cpf, senha, senhaRepeticao, admin };
-    data = JSON.stringify(data);
-    if (idParam == null) {
-      await axios
-        .post(baseURL, data, {
-          headers: { 'Content-Type': 'application/json' },
-        })
-        .then(function (response) {
-          mensagemSucesso(`Usuário ${login} cadastrado com sucesso!`);
-          navigate(`/listagem-usuarios`);
-        })
-        .catch(function (error) {
-          mensagemErro(error.response.data);
-        });
-    } else {
-      await axios
-        .put(`${baseURL}/${idParam}`, data, {
-          headers: { 'Content-Type': 'application/json' },
-        })
-        .then(function (response) {
-          mensagemSucesso(`Usuário ${login} alterado com sucesso!`);
-          navigate(`/listagem-usuarios`);
-        })
-        .catch(function (error) {
-          mensagemErro(error.response.data);
-        });
-    }
-  }
+  // async function salvar() {
+  //   let data = { id, nome, cpf, senha, senhaRepeticao, admin };
+  //   data = JSON.stringify(data);
+  //   if (idParam == null) {
+  //     await axios
+  //       .post(baseURL, data, {
+  //         headers: { 'Content-Type': 'application/json' },
+  //       })
+  //       .then(function (response) {
+  //         mensagemSucesso(`Usuário ${login} cadastrado com sucesso!`);
+  //         navigate(`/listagem-usuarios`);
+  //       })
+  //       .catch(function (error) {
+  //         mensagemErro(error.response.data);
+  //       });
+  //   } else {
+  //     await axios
+  //       .put(`${baseURL}/${idParam}`, data, {
+  //         headers: { 'Content-Type': 'application/json' },
+  //       })
+  //       .then(function (response) {
+  //         mensagemSucesso(`Usuário ${login} alterado com sucesso!`);
+  //         navigate(`/listagem-usuarios`);
+  //       })
+  //       .catch(function (error) {
+  //         mensagemErro(error.response.data);
+  //       });
+  //   }
+  // }
 
-  async function buscar() {
-    await axios.get(`${baseURL}/${idParam}`).then((response) => {
-      setDados(response.data);
-    });
-    setId(dados.id);
-    setLogin(dados.login);
-    setCpf(dados.cpf);
-    setSenha('');
-    setSenhaRepeticao('');
-    setAdmin(dados.admin);
-  }
+  // async function buscar() {
+  //   await axios.get(`${baseURL}/${idParam}`).then((response) => {
+  //     setDados(response.data);
+  //   });
+  //   setId(dados.id);
+  //   setNome(dados.nome);
+  //   setCpf(dados.cpf);
+  //   setSenha('');
+  //   setSenhaRepeticao('');
+  //   setAdmin(dados.admin);
+  // }
 
-  useEffect(() => {
-    buscar(); // eslint-disable-next-line
-  }, [id]);
+  // useEffect(() => {
+  //   buscar(); // eslint-disable-next-line
+  // }, [id]);
 
-  if (!dados) return null;
+  // if (!dados) return null;
 
   return (
     <div className='container'>
@@ -101,14 +110,14 @@ function CadastroUsuario() {
         <div className='row'>
           <div className='col-lg-12'>
             <div className='bs-component'>
-              <FormGroup label='Login: *' htmlFor='inputLogin'>
+              <FormGroup label='Nome: *' htmlFor='inputNome'>
                 <input
                   type='text'
-                  id='inputLogin'
-                  value={login}
+                  id='inputNome'
+                  value={nome}
                   className='form-control'
-                  name='login'
-                  onChange={(e) => setLogin(e.target.value)}
+                  name='nome'
+                  onChange={(e) => setNome(e.target.value)}
                 />
               </FormGroup>
               <FormGroup label='CPF: *' htmlFor='inputCpf'>
@@ -120,6 +129,83 @@ function CadastroUsuario() {
                   className='form-control'
                   name='cpf'
                   onChange={(e) => setCpf(e.target.value)}
+                />
+                </FormGroup>
+                <FormGroup label='email: *' htmlFor='inputEmail'>
+                <input
+                  type='text'
+                  maxLength='11'
+                  id='inputEmail'
+                  value={email}
+                  className='form-control'
+                  name='email'
+                  onChange={(e) => setEmail(e.target.value)}
+                />
+                </FormGroup>
+                <FormGroup label='Telefone: *' htmlFor='inputTel'>
+                <input
+                  type='text'
+                  maxLength='11'
+                  id='inputTel'
+                  value={tel}
+                  className='form-control'
+                  name='tel'
+                  onChange={(e) => setTel(e.target.value)}
+                />
+                </FormGroup>
+                <FormGroup label='CEP: *' htmlFor='inputCep'>
+                <input
+                  type='text'
+                  maxLength='11'
+                  id='inputCep'
+                  value={cep}
+                  className='form-control'
+                  name='cep'
+                  onChange={(e) => setCep(e.target.value)}
+                />
+                </FormGroup>
+                <FormGroup label='UF: *' htmlFor='inputUf'>
+                <input
+                  type='text'
+                  maxLength='11'
+                  id='inputUf'
+                  value={cpf}
+                  className='form-control'
+                  name='uf'
+                  onChange={(e) => setUf(e.target.value)}
+                />
+                </FormGroup>
+                <FormGroup label='CIDADE: *' htmlFor='inputCidade'>
+                <input
+                  type='text'
+                  maxLength='11'
+                  id='inputCidade'
+                  value={cidade}
+                  className='form-control'
+                  name='cidade'
+                  onChange={(e) => setCidade(e.target.value)}
+                />
+                </FormGroup>
+                <FormGroup label='COMPLEMENTO: *' htmlFor='inputComplemento'>
+                <input
+                  type='text'
+                  maxLength='11'
+                  id='inputComplemento'
+                  value={complemento}
+                  className='form-control'
+                  name='complemento'
+                  onChange={(e) => setComplemento(e.target.value)}
+                />
+                </FormGroup>
+                <FormGroup label='Numero: *' htmlFor='inputNumero'>
+                <input
+                  type='text'
+                  maxLength='11'
+                  id='inputNumero'
+                  value={numero}
+                  className='form-control'
+                  name='numero'
+                  onChange={(e) => setNumero(e.target.value)}
                 />
               </FormGroup>
               <FormGroup label='Senha: *' htmlFor='inputSenha'>
@@ -155,14 +241,14 @@ function CadastroUsuario() {
               </FormGroup>
               <Stack spacing={1} padding={1} direction='row'>
                 <button
-                  onClick={salvar}
+                  // onClick={salvar}
                   type='button'
                   className='btn btn-success'
                 >
                   Salvar
                 </button>
                 <button
-                  onClick={inicializar}
+                  // onClick={inicializar}
                   type='button'
                   className='btn btn-danger'
                 >

@@ -29,12 +29,12 @@ function Navbar(props) {
               label='Usuários'
             />
           </ul>
-          <ul className='navbar-nav'>
+          {/* <ul className='navbar-nav'>
             <NavbarItem render='true' href='/login' label='Entrar' />
           </ul>
           <ul className='navbar-nav'>
             <NavbarItem render='true' href='/' label='Sair' />
-          </ul>
+          </ul> */}
         </div>
       </div>
     </div>
