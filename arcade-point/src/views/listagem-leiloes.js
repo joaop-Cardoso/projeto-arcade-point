@@ -14,19 +14,19 @@ import DeleteIcon from '@mui/icons-material/Delete';
 import EditIcon from '@mui/icons-material/Edit';
 
 import axios from 'axios';
-import { BASE_URL } from '../config/axios';
+import { BASE_URL } from '../config/axios2';
 
-const baseURL = `${BASE_URL}/usuarios`;
+const baseURL = `${BASE_URL}/leiloes`;
 
-function ListagemUsuarios() {
+function ListagemLeiloes() {
   const navigate = useNavigate();
 
   const cadastrar = () => {
-    navigate(`/cadastro-usuarios`);
+    navigate(`/cadastro-leilao`);
   };
 
   const editar = (id) => {
-    navigate(`/cadastro-usuarios/${id}`);
+    navigate(`/cadastro-leilao/${id}`);
   };
 
   const [dados, setDados] = React.useState(null);
@@ -40,7 +40,7 @@ function ListagemUsuarios() {
         headers: { 'Content-Type': 'application/json' },
       })
       .then(function (response) {
-        mensagemSucesso(`Usuário excluído com sucesso!`);
+        mensagemSucesso(`Leilão excluído com sucesso!`);
         setDados(
           dados.filter((dado) => {
             return dado.id !== id;
@@ -48,7 +48,7 @@ function ListagemUsuarios() {
         );
       })
       .catch(function (error) {
-        mensagemErro(`Erro ao excluir o usuário`);
+        mensagemErro(`Erro ao excluir o Leilão`);
       });
   }
 
@@ -62,7 +62,7 @@ function ListagemUsuarios() {
 
   return (
     <div className='container'>
-      <Card title='Listagem de Usuários'>
+      <Card title='Listagem de Leilões'>
         <div className='row'>
           <div className='col-lg-12'>
             <div className='bs-component'>
@@ -71,27 +71,28 @@ function ListagemUsuarios() {
                 className='btn btn-warning'
                 onClick={() => cadastrar()}
               >
-                Novo Usuário
+                Novo Leilão
               </button>
               <table className='table table-hover'>
                 <thead>
                   <tr>
-                    <th scope='col'>NOME</th>
-                    <th scope='col'>CPF</th>
-                    <th scope='col'>EMAIL</th>
-                    <th scope='col'>TELEFONE</th>
-                    <th scope='col'>Administrador</th>
-                    <th scope='col'>Ações</th>
+                    <th scope='col'>PRODUTO</th>
+                    <th scope='col'>DESCRIÇÃO</th>
+                    <th scope='col'>CATEGORIA</th>
+                    <th scope='col'>CONSERVACÃO</th>
+                    <th scope='col'>VALOR INICIAL</th>
+                    <th scope='col'>VALOR AUMENTO</th>
                   </tr>
                 </thead>
                 <tbody>
                   {dados.map((dado) => (
                     <tr key={dado.id}>
-                      <td>{dado.nome}</td>
-                      <td>{dado.cpf}</td>
-                      <td>{dado.email}</td>
-                      <td>{dado.tel}</td>
-                      <td>{dado.admin ? 'Sim' : 'Não'}</td>
+                      <td>{dado.produtoId}</td>
+                      <td>{dado.descricao}</td>
+                      <td>{dado.categoriaId}</td>
+                      <td>{dado.estadoConservacao}</td>
+                      <td>{dado.valorInicial}</td>
+                      <td>{dado.valorAumento}</td>
                       <td>
                         <Stack spacing={1} padding={0} direction='row'>
                           <IconButton
@@ -120,4 +121,4 @@ function ListagemUsuarios() {
   );
 }
 
-export default ListagemUsuarios;
+export default ListagemLeiloes;

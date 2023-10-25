@@ -16,17 +16,17 @@ import EditIcon from '@mui/icons-material/Edit';
 import axios from 'axios';
 import { BASE_URL } from '../config/axios';
 
-const baseURL = `${BASE_URL}/usuarios`;
+const baseURL = `${BASE_URL}/categorias`;
 
-function ListagemUsuarios() {
+function ListagemCategorias() {
   const navigate = useNavigate();
 
   const cadastrar = () => {
-    navigate(`/cadastro-usuarios`);
+    navigate(`/cadastro-categoria`);
   };
 
   const editar = (id) => {
-    navigate(`/cadastro-usuarios/${id}`);
+    navigate(`/cadastro-categoria/${id}`);
   };
 
   const [dados, setDados] = React.useState(null);
@@ -40,7 +40,7 @@ function ListagemUsuarios() {
         headers: { 'Content-Type': 'application/json' },
       })
       .then(function (response) {
-        mensagemSucesso(`Usuário excluído com sucesso!`);
+        mensagemSucesso(`Categoria excluída com sucesso!`);
         setDados(
           dados.filter((dado) => {
             return dado.id !== id;
@@ -48,7 +48,7 @@ function ListagemUsuarios() {
         );
       })
       .catch(function (error) {
-        mensagemErro(`Erro ao excluir o usuário`);
+        mensagemErro(`Erro ao excluir a categoria`);
       });
   }
 
@@ -62,7 +62,7 @@ function ListagemUsuarios() {
 
   return (
     <div className='container'>
-      <Card title='Listagem de Usuários'>
+      <Card title='Listagem de Categorias'>
         <div className='row'>
           <div className='col-lg-12'>
             <div className='bs-component'>
@@ -71,16 +71,12 @@ function ListagemUsuarios() {
                 className='btn btn-warning'
                 onClick={() => cadastrar()}
               >
-                Novo Usuário
+                Nova Categoria
               </button>
               <table className='table table-hover'>
                 <thead>
                   <tr>
                     <th scope='col'>NOME</th>
-                    <th scope='col'>CPF</th>
-                    <th scope='col'>EMAIL</th>
-                    <th scope='col'>TELEFONE</th>
-                    <th scope='col'>Administrador</th>
                     <th scope='col'>Ações</th>
                   </tr>
                 </thead>
@@ -88,10 +84,6 @@ function ListagemUsuarios() {
                   {dados.map((dado) => (
                     <tr key={dado.id}>
                       <td>{dado.nome}</td>
-                      <td>{dado.cpf}</td>
-                      <td>{dado.email}</td>
-                      <td>{dado.tel}</td>
-                      <td>{dado.admin ? 'Sim' : 'Não'}</td>
                       <td>
                         <Stack spacing={1} padding={0} direction='row'>
                           <IconButton
@@ -120,4 +112,4 @@ function ListagemUsuarios() {
   );
 }
 
-export default ListagemUsuarios;
+export default ListagemCategorias;
