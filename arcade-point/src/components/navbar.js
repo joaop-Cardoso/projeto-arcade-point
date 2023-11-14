@@ -70,13 +70,13 @@ function Navbar(props) {
             />
           </ul>
 
-          <ul className='navbar-nav'>
+          {/* <ul className='navbar-nav'>
             <NavbarItem
               render='true'
               href='/listagem-conservacoes'
               label='Conservações'
             />
-          </ul> 
+          </ul>  */}
           
           {/* <ul className='navbar-nav'>
             <NavbarItem render='true' href='/login' label='Entrar' />

@@ -11,92 +11,112 @@ import { mensagemSucesso, mensagemErro } from '../components/toastr';
 import '../custom.css';
 
 import axios from 'axios';
-import { BASE_URL } from '../config/axios2';
+import { BASE_URL2 } from '../config/axios2';
+import { BASE_URL } from '../config/axios';
 
 function CadastroProcura() {
   const { idParam } = useParams();
 
   const navigate = useNavigate();
 
-  const baseURL = `${BASE_URL}/procuras`;
-
-  // EMAIL	TELEFONE	CEP	UF	CIDADE	COMPLEMENTO	NUMERO
+  const baseURL = `${BASE_URL2}/procuras`;
 
   const [id, setId] = useState('');
-  const [produtoId, setProduto] = useState('');
+  const [idProduto, setIdProduto] = useState(0);
   const [descricao, setDecricao] = useState('');
-  const [categoriaId, setCategoria] = useState('');
+  const [idCategoria, setIdCategoria] = useState(0);
   const [estadoConservacao, setEstadoConservacao] = useState('');
   const [valorAproximado, setValorAproximado] = useState('');
-  
+
 
   const [dados, setDados] = useState([]);
 
-  // function inicializar() {
-  //   if (idParam == null) {
-  //     setId('');
-  //     setNome('');
-  //     setCpf('');
-  //     setSenha('');
-  //     setSenhaRepeticao('');
-  //     setAdmin(false);
-  //   } else {
-  //     setId(dados.id);
-  //     setNome(dados.login);
-  //     setCpf(dados.cpf);
-  //     setSenha('');
-  //     setSenhaRepeticao('');
-  //     setAdmin(dados.admin);
-  //   }
-  // }
+  function inicializar() {
+    if (idParam == null) {
+      setId('');
+      setIdProduto(0);
+      setDecricao('');
+      setIdCategoria(0);
+      setEstadoConservacao('');
+      setValorAproximado('')
+    } else {
+      setId(dados.id);
+      setIdProduto(dados.idProduto);
+      setDecricao(dados.descricao);
+      setIdCategoria(dados.idCategoria);
+      setEstadoConservacao(dados.estadoConservacao);
+      setValorAproximado(dados.valorAproximado)
+    }
+  }
 
-  // async function salvar() {
-  //   let data = { id, nome, cpf, senha, senhaRepeticao, admin };
-  //   data = JSON.stringify(data);
-  //   if (idParam == null) {
-  //     await axios
-  //       .post(baseURL, data, {
-  //         headers: { 'Content-Type': 'application/json' },
-  //       })
-  //       .then(function (response) {
-  //         mensagemSucesso(`Usuário ${login} cadastrado com sucesso!`);
-  //         navigate(`/listagem-usuarios`);
-  //       })
-  //       .catch(function (error) {
-  //         mensagemErro(error.response.data);
-  //       });
-  //   } else {
-  //     await axios
-  //       .put(`${baseURL}/${idParam}`, data, {
-  //         headers: { 'Content-Type': 'application/json' },
-  //       })
-  //       .then(function (response) {
-  //         mensagemSucesso(`Usuário ${login} alterado com sucesso!`);
-  //         navigate(`/listagem-usuarios`);
-  //       })
-  //       .catch(function (error) {
-  //         mensagemErro(error.response.data);
-  //       });
-  //   }
-  // }
+  async function salvar() {
+    let data = { id, idProduto, descricao, idCategoria, estadoConservacao, valorAproximado };
+    data = JSON.stringify(data);
+    if (idParam == null) {
+      await axios
+        .post(baseURL, data, {
+          headers: { 'Content-Type': 'application/json' },
+        })
+        .then(function (response) {
+          mensagemSucesso(`Procura cadastrada com sucesso!`);
+          navigate(`/listagem-procuras`);
+        })
+        .catch(function (error) {
+          mensagemErro(error.response.data);
+        });
+    } else {
+      await axios
+        .put(`${baseURL}/${idParam}`, data, {
+          headers: { 'Content-Type': 'application/json' },
+        })
+        .then(function (response) {
+          mensagemSucesso(`Procura alterada com sucesso!`);
+          navigate(`/listagem-procuras`);
+        })
+        .catch(function (error) {
+          mensagemErro(error.response.data);
+        });
+    }
+  }
 
-  // async function buscar() {
-  //   await axios.get(`${baseURL}/${idParam}`).then((response) => {
-  //     setDados(response.data);
-  //   });
-  //   setId(dados.id);
-  //   setNome(dados.nome);
-  //   setCpf(dados.cpf);
-  //   setSenha('');
-  //   setSenhaRepeticao('');
-  //   setAdmin(dados.admin);
-  // }
+  async function buscar() {
+    if (idParam != null) {
+      await axios.get(`${baseURL}/${idParam}`).then((response) => {
+        setDados(response.data);
+      });
+      setId(dados.id);
+      setIdProduto(dados.idProduto);
+      setDecricao(dados.descricao);
+      setIdCategoria(dados.idCategoria);
+      setEstadoConservacao(dados.estadoConservacao);
+      setValorAproximado(dados.valorAproximado);
+    }
+  }
 
-  // useEffect(() => {
-  //   buscar(); // eslint-disable-next-line
-  // }, [id]);
+  const [dadosProdutos, setDadosProdutos] = React.useState(null);
 
-  // if (!dados) return null;
+  useEffect(() => {
+    axios.get(`${BASE_URL2}/produtos`).then((response) => {
+      setDadosProdutos(response.data);
+    });
+  }, []);
+
+
+  const [dadosCategorias, setDadosCategorias] = React.useState(null);
+
+  useEffect(() => {
+    axios.get(`${BASE_URL}/categorias`).then((response) => {
+      setDadosCategorias(response.data);
+    });
+  }, []);
+
+  useEffect(() => {
+    buscar(); // eslint-disable-next-line
+  }, [id]);
+
+  if (!dados) return null;
+  if (!dadosProdutos) return null;
+  if (!dadosCategorias) return null;
 
   return (
     <div className='container'>
@@ -105,14 +125,22 @@ function CadastroProcura() {
           <div className='col-lg-12'>
             <div className='bs-component'>
               <FormGroup label='Produto: *' htmlFor='inputProduto'>
-                <input
-                  type='text'
-                  id='inputProduto'
-                  value={produtoId}
-                  className='form-control'
-                  name='produto'
-                  onChange={(e) => setProduto(e.target.value)}
-                />
+              <select
+                  className='form-select'
+                  id='selectProduto'
+                  name='idProduto'
+                  value={idProduto}
+                  onChange={(e) => setIdProduto(e.target.value)}
+                >
+                  <option key='0' value='0'>
+                    {' '}
+                  </option>
+                  {dadosProdutos.map((dado) => (
+                    <option key={dado.id} value={dado.id}>
+                      {dado.nome}
+                    </option>
+                  ))}
+                </select>
               </FormGroup>
               <FormGroup label='Descrição: ' htmlFor='inputDescricao'>
                 <input
@@ -124,19 +152,26 @@ function CadastroProcura() {
                   name='descricao'
                   onChange={(e) => setDecricao(e.target.value)}
                 />
-                </FormGroup>
-                <FormGroup label='Categoria: *' htmlFor='inputCategoria'>
-                <input
-                  type='text'
-                  maxLength='11'
-                  id='inputCategoria'
-                  value={categoriaId}
-                  className='form-control'
-                  name='Categoria'
-                  onChange={(e) => setCategoria(e.target.value)}
-                />
-                </FormGroup>
-                <FormGroup label='Estado de Conservação: *' htmlFor='inputConservacao'>
+              </FormGroup>
+              <FormGroup label='Categoria: *' htmlFor='inputCategoria'>
+              <select
+                  className='form-select'
+                  id='selectCategoria'
+                  name='idCategoria'
+                  value={idCategoria}
+                  onChange={(e) => setIdCategoria(e.target.value)}
+                >
+                  <option key='0' value='0'>
+                    {' '}
+                  </option>
+                  {dadosCategorias.map((dado) => (
+                    <option key={dado.id} value={dado.id}>
+                      {dado.nome}
+                    </option>
+                  ))}
+                </select>
+              </FormGroup>
+              <FormGroup label='Estado de Conservação: *' htmlFor='inputConservacao'>
                 <input
                   type='text'
                   maxLength='11'
@@ -146,8 +181,8 @@ function CadastroProcura() {
                   name='Estado de Conservação'
                   onChange={(e) => setEstadoConservacao(e.target.value)}
                 />
-                </FormGroup>
-                <FormGroup label='Valor Aproximado: ' htmlFor='inputValorAproximado'>
+              </FormGroup>
+              <FormGroup label='Valor Aproximado: ' htmlFor='inputValorAproximado'>
                 <input
                   type='text'
                   maxLength='11'
@@ -157,7 +192,7 @@ function CadastroProcura() {
                   name='ValorAproximado'
                   onChange={(e) => setValorAproximado(e.target.value)}
                 />
-                </FormGroup>
+              </FormGroup>
               <Stack spacing={1} padding={1} direction='row'>
                 <button
                   // onClick={salvar}
