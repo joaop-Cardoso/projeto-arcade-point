@@ -8,7 +8,7 @@ function Navbar(props) {
     <div className='navbar navbar-expand-lg fixed-top navbar-dark bg-primary'>
       <div className='container'>
         <a href='/' className='navbar-brand'>
-          Arcade-Point
+          Arcade Point
         </a>
         <button
           className='navbar-toggler'
@@ -41,8 +41,24 @@ function Navbar(props) {
           <ul className='navbar-nav'>
             <NavbarItem
               render='true'
+              href='/listagem-categorias'
+              label='Categorias'
+            />
+          </ul>
+
+          <ul className='navbar-nav'>
+            <NavbarItem
+              render='true'
+              href='/listagem-conservacoes'
+              label='Conservações'
+            />
+          </ul> 
+
+          <ul className='navbar-nav'>
+            <NavbarItem
+              render='true'
               href='/listagem-anuncios'
-              label='Anuncios'
+              label='Anúncios'
             />
           </ul>
 
@@ -61,22 +77,6 @@ function Navbar(props) {
               label='Leilões'
             />
           </ul>
-
-          <ul className='navbar-nav'>
-            <NavbarItem
-              render='true'
-              href='/listagem-categorias'
-              label='Categorias'
-            />
-          </ul>
-
-          {/* <ul className='navbar-nav'>
-            <NavbarItem
-              render='true'
-              href='/listagem-conservacoes'
-              label='Conservações'
-            />
-          </ul>  */}
           
           {/* <ul className='navbar-nav'>
             <NavbarItem render='true' href='/login' label='Entrar' />

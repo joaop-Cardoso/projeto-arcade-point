@@ -25,7 +25,7 @@ function CadastroLeilao() {
   const [idProduto, setIdProduto] = useState(0);
   const [descricao, setDecricao] = useState('');
   const [idCategoria, setIdCategoria] = useState(0);
-  const [estadoConservacao, setEstadoConservacao] = useState('');
+  const [idConservacao, setIdConservacao] = useState('');
   const [valorInicial, setValorInicial] = useState('');
   const [valorAumento, setValorAumento] = useState('');
   const [dataInicio, setDataInicio] = useState('');
@@ -42,7 +42,7 @@ function CadastroLeilao() {
       setIdProduto(0);
       setDecricao('');
       setIdCategoria(0);
-      setEstadoConservacao('');
+      setIdConservacao(0);
       setValorInicial('');
       setValorAumento('');
       setDataInicio('');
@@ -54,7 +54,7 @@ function CadastroLeilao() {
       setIdProduto(dados.idProduto);
       setDecricao(dados.descricao);
       setIdCategoria(dados.idCategoria);
-      setEstadoConservacao(dados.estadoConservacao);
+      setIdConservacao(dados.idConservacao);
       setValorInicial(dados.valorInicial);
       setValorAumento(dados.valorAumento);
       setDataInicio(dados.dataInicio);
@@ -65,7 +65,7 @@ function CadastroLeilao() {
   }
 
   async function salvar() {
-    let data = { id, idProduto, descricao, idCategoria, estadoConservacao, valorInicial, valorAumento, dataInicio, horaInicio, dataInicio, dataFim };
+    let data = { id, idProduto, descricao, idCategoria, idConservacao, valorInicial, valorAumento, dataInicio, horaInicio, dataInicio, dataFim };
     data = JSON.stringify(data);
     if (idParam == null) {
       await axios
@@ -103,7 +103,7 @@ function CadastroLeilao() {
     setIdProduto(dados.idProduto);
     setDecricao(dados.descricao);
     setIdCategoria(dados.idCategoria);
-    setEstadoConservacao(dados.estadoConservacao);
+    setIdConservacao(dados.idConservacao);
     setValorInicial(dados.valorInicial);
     setValorAumento(dados.valorAumento);
     setDataInicio(dados.dataInicio);
@@ -130,6 +130,14 @@ function CadastroLeilao() {
     });
   }, []);
 
+  const [dadosConservacoes, setDadosConservacoes] = React.useState(null);
+
+  useEffect(() => {
+    axios.get(`${BASE_URL}/conservacoes`).then((response) => {
+      setDadosConservacoes(response.data);
+    });
+  }, []);
+
   useEffect(() => {
     buscar(); // eslint-disable-next-line
   }, [id]);
@@ -137,6 +145,7 @@ function CadastroLeilao() {
   if (!dados) return null;
   if (!dadosProdutos) return null;
   if (!dadosCategorias) return null;
+  if (!dadosConservacoes) return null;
 
   return (
     <div className='container'>
@@ -191,16 +200,23 @@ function CadastroLeilao() {
                   ))}
                 </select>
               </FormGroup>
-              <FormGroup label='Estado de Conservação: *' htmlFor='inputConservacao'>
-                <input
-                  type='text'
-                  maxLength='11'
-                  id='inputConservacao'
-                  value={estadoConservacao}
-                  className='form-control'
-                  name='Estado de Conservação'
-                  onChange={(e) => setEstadoConservacao(e.target.value)}
-                />
+              <FormGroup label='Conservação: *' htmlFor='inputConservacao'>
+                <select
+                  className='form-select'
+                  id='selectConservacao'
+                  name='idConservacao'
+                  value={idConservacao}
+                  onChange={(e) => setIdConservacao(e.target.value)}
+                >
+                  <option key='0' value='0'>
+                    {' '}
+                  </option>
+                  {dadosConservacoes.map((dado) => (
+                    <option key={dado.id} value={dado.id}>
+                      {dado.nome}
+                    </option>
+                  ))}
+                </select>
               </FormGroup>
               <FormGroup label='Valor Inicial: *' htmlFor='inputValorInicial'>
                 <input
@@ -226,8 +242,7 @@ function CadastroLeilao() {
               </FormGroup>
               <FormGroup label='Data Início: *' htmlFor='inputDataInicio'>
                 <input
-                  type='text'
-                  maxLength='11'
+                  type='date'
                   id='inputDataInicio'
                   value={dataInicio}
                   className='form-control'
@@ -235,10 +250,9 @@ function CadastroLeilao() {
                   onChange={(e) => setDataInicio(e.target.value)}
                 />
               </FormGroup>
-              <FormGroup label='Hora Início: *' htmlFor='inputHoraInicio'>
+              <FormGroup label='Horário Início: *' htmlFor='inputHoraInicio'>
                 <input
-                  type='text'
-                  maxLength='11'
+                  type='time'
                   id='inputHoraInicio'
                   value={horaInicio}
                   className='form-control'
@@ -248,8 +262,7 @@ function CadastroLeilao() {
               </FormGroup>
               <FormGroup label='Data Fim: *' htmlFor='inputDataFim'>
                 <input
-                  type='text'
-                  maxLength='11'
+                  type='date'
                   id='inputDataFim'
                   value={dataFim}
                   className='form-control'
@@ -257,10 +270,9 @@ function CadastroLeilao() {
                   onChange={(e) => setDataFim(e.target.value)}
                 />
               </FormGroup>
-              <FormGroup label='Hora Fim: *' htmlFor='inputHoraFim'>
+              <FormGroup label='Horário Fim: *' htmlFor='inputHoraFim'>
                 <input
-                  type='text'
-                  maxLength='11'
+                  type='time'
                   id='inputHoraFim'
                   value={horaFim}
                   className='form-control'

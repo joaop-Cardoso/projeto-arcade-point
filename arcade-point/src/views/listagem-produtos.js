@@ -76,8 +76,8 @@ function ListagemProdutos() {
               <table className='table table-hover'>
                 <thead>
                   <tr>
-                    <th scope='col'>NOME</th>
-                    <th scope='col'>MARCA</th>
+                    <th scope='col'>Nome</th>
+                    <th scope='col'>Marca</th>
                     <th scope='col'>Ações</th>
                   </tr>
                 </thead>

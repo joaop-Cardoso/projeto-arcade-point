@@ -76,7 +76,7 @@ function ListagemCategorias() {
               <table className='table table-hover'>
                 <thead>
                   <tr>
-                    <th scope='col'>NOME</th>
+                    <th scope='col'>Nome</th>
                     <th scope='col'>Ações</th>
                   </tr>
                 </thead>

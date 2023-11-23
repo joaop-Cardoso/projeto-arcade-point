@@ -141,7 +141,7 @@ function CadastroUsuario() {
                   onChange={(e) => setNome(e.target.value)}
                 />
               </FormGroup>
-              <FormGroup label='CPF: *' htmlFor='inputCpf'>
+              <FormGroup label='Cpf: *' htmlFor='inputCpf'>
                 <input
                   type='text'
                   maxLength='11'
@@ -152,7 +152,7 @@ function CadastroUsuario() {
                   onChange={(e) => setCpf(e.target.value)}
                 />
               </FormGroup>
-              <FormGroup label='email: *' htmlFor='inputEmail'>
+              <FormGroup label='E-mail: *' htmlFor='inputEmail'>
                 <input
                   type='text'
                   maxLength='11'
@@ -174,7 +174,7 @@ function CadastroUsuario() {
                   onChange={(e) => setTel(e.target.value)}
                 />
               </FormGroup>
-              <FormGroup label='CEP: *' htmlFor='inputCep'>
+              <FormGroup label='Cep: *' htmlFor='inputCep'>
                 <input
                   type='text'
                   maxLength='11'
@@ -185,7 +185,7 @@ function CadastroUsuario() {
                   onChange={(e) => setCep(e.target.value)}
                 />
               </FormGroup>
-              <FormGroup label='UF: *' htmlFor='inputUf'>
+              <FormGroup label='Uf: *' htmlFor='inputUf'>
                 <input
                   type='text'
                   maxLength='11'
@@ -196,7 +196,7 @@ function CadastroUsuario() {
                   onChange={(e) => setUf(e.target.value)}
                 />
               </FormGroup>
-              <FormGroup label='CIDADE: *' htmlFor='inputCidade'>
+              <FormGroup label='Cidade: *' htmlFor='inputCidade'>
                 <input
                   type='text'
                   maxLength='11'
@@ -207,7 +207,7 @@ function CadastroUsuario() {
                   onChange={(e) => setCidade(e.target.value)}
                 />
               </FormGroup>
-              <FormGroup label='COMPLEMENTO: *' htmlFor='inputComplemento'>
+              <FormGroup label='Complemento: *' htmlFor='inputComplemento'>
                 <input
                   type='text'
                   maxLength='11'
@@ -218,7 +218,7 @@ function CadastroUsuario() {
                   onChange={(e) => setComplemento(e.target.value)}
                 />
               </FormGroup>
-              <FormGroup label='Numero: *' htmlFor='inputNumero'>
+              <FormGroup label='Número: *' htmlFor='inputNumero'>
                 <input
                   type='text'
                   maxLength='11'

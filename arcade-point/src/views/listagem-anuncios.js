@@ -71,25 +71,25 @@ function ListagemAnuncios() {
                 className='btn btn-warning'
                 onClick={() => cadastrar()}
               >
-                Novo Anuncio
+                Novo Anúncio
               </button>
               <table className='table table-hover'>
                 <thead>
                   <tr>
-                    <th scope='col'>PRODUTO</th>
-                    <th scope='col'>DESCRIÇÃO</th>
-                    <th scope='col'>CATEGORIA</th>
-                    <th scope='col'>CONSERVACÃO</th>
-                    <th scope='col'>VALOR</th>
+                    <th scope='col'>Produto</th>
+                    <th scope='col'>Descrição</th>
+                    <th scope='col'>Categoria</th>
+                    <th scope='col'>Conservação</th>
+                    <th scope='col'>Valor</th>
                   </tr>
                 </thead>
                 <tbody>
                   {dados.map((dado) => (
                     <tr key={dado.id}>
-                      <td>{dado.produtoId}</td>
+                      <td>{dado.produtoNome}</td>
                       <td>{dado.descricao}</td>
-                      <td>{dado.categoriaId}</td>
-                      <td>{dado.estadoConservacao}</td>
+                      <td>{dado.categoriaNome}</td>
+                      <td>{dado.conservacaoNome}</td>
                       <td>{dado.valor}</td>
                       <td>
                         <Stack spacing={1} padding={0} direction='row'>

@@ -40,7 +40,7 @@ function ListagemConservacoes() {
         headers: { 'Content-Type': 'application/json' },
       })
       .then(function (response) {
-        mensagemSucesso(`Conservação excluída com sucesso!`);
+        mensagemSucesso(`Tipo de conservação excluída com sucesso!`);
         setDados(
           dados.filter((dado) => {
             return dado.id !== id;
@@ -48,7 +48,7 @@ function ListagemConservacoes() {
         );
       })
       .catch(function (error) {
-        mensagemErro(`Erro ao excluir a conservação`);
+        mensagemErro(`Erro ao excluir o tipo de conservação`);
       });
   }
 
@@ -62,7 +62,7 @@ function ListagemConservacoes() {
 
   return (
     <div className='container'>
-      <Card title='Listagem de Conservações'>
+      <Card title='Listagem de Tipos de Conservação'>
         <div className='row'>
           <div className='col-lg-12'>
             <div className='bs-component'>
@@ -76,7 +76,7 @@ function ListagemConservacoes() {
               <table className='table table-hover'>
                 <thead>
                   <tr>
-                    <th scope='col'>NOME</th>
+                    <th scope='col'>Nome</th>
                     <th scope='col'>Ações</th>
                   </tr>
                 </thead>

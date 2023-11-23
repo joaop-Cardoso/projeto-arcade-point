@@ -25,7 +25,7 @@ function CadastroAnuncio() {
   const [idProduto, setIdProduto] = useState(0);
   const [descricao, setDecricao] = useState('');
   const [idCategoria, setIdCategoria] = useState(0);
-  const [estadoConservacao, setEstadoConservacao] = useState('');
+  const [idConservacao, setIdConservacao] = useState(0);
   const [valor, setValor] = useState('');
 
 
@@ -37,20 +37,20 @@ function CadastroAnuncio() {
       setIdProduto(0);
       setDecricao('');
       setIdCategoria(0);
-      setEstadoConservacao('');
+      setIdConservacao(0);
       setValor('')
     } else {
       setId(dados.id);
       setIdProduto(dados.idProduto);
       setDecricao(dados.descricao);
       setIdCategoria(dados.idCategoria);
-      setEstadoConservacao(dados.estadoConservacao);
+      setIdConservacao(dados.idConservacao);
       setValor(dados.valor)
     }
   }
 
   async function salvar() {
-    let data = { id, idProduto, descricao, idCategoria, estadoConservacao, valor };
+    let data = { id, idProduto, descricao, idCategoria, idConservacao, valor };
     data = JSON.stringify(data);
     if (idParam == null) {
       await axios
@@ -88,7 +88,7 @@ function CadastroAnuncio() {
       setIdProduto(dados.idProduto);
       setDecricao(dados.descricao);
       setIdCategoria(dados.idCategoria);
-      setEstadoConservacao(dados.estadoConservacao);
+      setIdConservacao(dados.idConservacao);
       setValor(dados.valor);
     }
   }
@@ -110,6 +110,14 @@ function CadastroAnuncio() {
     });
   }, []);
 
+  const [dadosConservacoes, setDadosConservacoes] = React.useState(null);
+
+  useEffect(() => {
+    axios.get(`${BASE_URL}/conservacoes`).then((response) => {
+      setDadosConservacoes(response.data);
+    });
+  }, []);
+
   useEffect(() => {
     buscar(); // eslint-disable-next-line
   }, [id]);
@@ -117,10 +125,11 @@ function CadastroAnuncio() {
   if (!dados) return null;
   if (!dadosProdutos) return null;
   if (!dadosCategorias) return null;
+  if (!dadosConservacoes) return null;
 
   return (
     <div className='container'>
-      <Card title='Cadastro de Anuncio'>
+      <Card title='Cadastro de Anúncio'>
         <div className='row'>
           <div className='col-lg-12'>
             <div className='bs-component'>
@@ -171,28 +180,26 @@ function CadastroAnuncio() {
                   ))}
                 </select>
               </FormGroup>
-              <FormGroup label='Estado de Conservação: *' htmlFor='inputConservacao'>
-                <input
-                  type='text'
-                  maxLength='11'
-                  id='inputConservacao'
-                  value={estadoConservacao}
-                  className='form-control'
-                  name='Estado de Conservação'
-                  onChange={(e) => setEstadoConservacao(e.target.value)}
-                />
+
+              <FormGroup label='Conservação: *' htmlFor='inputConservacao'>
+                <select
+                  className='form-select'
+                  id='selectConservacao'
+                  name='idConservacao'
+                  value={idConservacao}
+                  onChange={(e) => setIdConservacao(e.target.value)}
+                >
+                  <option key='0' value='0'>
+                    {' '}
+                  </option>
+                  {dadosConservacoes.map((dado) => (
+                    <option key={dado.id} value={dado.id}>
+                      {dado.nome}
+                    </option>
+                  ))}
+                </select>
               </FormGroup>
-              <FormGroup label='Valor: *' htmlFor='inputValor'>
-                <input
-                  type='text'
-                  maxLength='11'
-                  id='inputValor'
-                  value={valor}
-                  className='form-control'
-                  name='Valor'
-                  onChange={(e) => setValor(e.target.value)}
-                />
-              </FormGroup>
+              
               <Stack spacing={1} padding={1} direction='row'>
                 <button
                   onClick={salvar}
