@@ -11,19 +11,17 @@ import { mensagemSucesso, mensagemErro } from '../components/toastr';
 import '../custom.css';
 
 import axios from 'axios';
-import { BASE_URL2 } from '../config/axios2';
 import { BASE_URL } from '../config/axios';
 
-function CadastroProduto() {
+function CadastroMarca() {
   const { idParam } = useParams();
 
   const navigate = useNavigate();
 
-  const baseURL = `${BASE_URL2}/produtos`;
+  const baseURL = `${BASE_URL}/marcas`;
 
   const [id, setId] = useState('');
   const [nome, setNome] = useState('');
-  const [idMarca, setIdMarca] = useState('');
 
   const [dados, setDados] = useState([]);
 
@@ -31,16 +29,14 @@ function CadastroProduto() {
     if (idParam == null) {
       setId('');
       setNome('');
-      setIdMarca(0);
     } else {
       setId(dados.id);
       setNome(dados.login);
-      setIdMarca(dados.idMarca);
     }
   }
 
   async function salvar() {
-    let data = { id, nome, idMarca };
+    let data = { id, nome };
     data = JSON.stringify(data);
     if (idParam == null) {
       await axios
@@ -48,8 +44,8 @@ function CadastroProduto() {
           headers: { 'Content-Type': 'application/json' },
         })
         .then(function (response) {
-          mensagemSucesso(`Produto ${nome} cadastrado com sucesso!`);
-          navigate(`/listagem-produtos`);
+          mensagemSucesso(`Marca ${nome} cadastrada com sucesso!`);
+          navigate(`/listagem-marcas`);
         })
         .catch(function (error) {
           mensagemErro(error.response.data);
@@ -60,8 +56,8 @@ function CadastroProduto() {
           headers: { 'Content-Type': 'application/json' },
         })
         .then(function (response) {
-          mensagemSucesso(`Produto ${nome} alterado com sucesso!`);
-          navigate(`/listagem-produtos`);
+          mensagemSucesso(`Marca ${nome} alterada com sucesso!`);
+          navigate(`/listagem-marcas`);
         })
         .catch(function (error) {
           mensagemErro(error.response.data);
@@ -70,34 +66,24 @@ function CadastroProduto() {
   }
 
   async function buscar() {
-    if (idParam != null) {
-      await axios.get(`${baseURL}/${idParam}`).then((response) => {
-        setDados(response.data);
-      });
-      setId(dados.id);
-      setNome(dados.nome);
-      setIdMarca(dados.idMarca);
-    }
-  }
-
-  const [dadosMarcas, setDadosMarcas] = React.useState(null);
-
-  useEffect(() => {
-    axios.get(`${BASE_URL}/marcas`).then((response) => {
-      setDadosMarcas(response.data);
+    if (idParam != null){
+    await axios.get(`${baseURL}/${idParam}`).then((response) => {
+      setDados(response.data);
     });
-  }, []);
+    setId(dados.id);
+    setNome(dados.nome);
+  }
+  }
 
   useEffect(() => {
     buscar(); // eslint-disable-next-line
   }, [id]);
 
   if (!dados) return null;
-  if (!dadosMarcas) return null;
 
   return (
     <div className='container'>
-      <Card title='Cadastro de Produto'>
+      <Card title='Cadastro de Marcas'>
         <div className='row'>
           <div className='col-lg-12'>
             <div className='bs-component'>
@@ -110,24 +96,6 @@ function CadastroProduto() {
                   name='nome'
                   onChange={(e) => setNome(e.target.value)}
                 />
-              </FormGroup>
-              <FormGroup label='Marca: *' htmlFor='inputMarca'>
-                <select
-                  className='form-select'
-                  id='selectMarca'
-                  name='idMarca'
-                  value={idMarca}
-                  onChange={(e) => setIdMarca(e.target.value)}
-                >
-                  <option key='0' value='0'>
-                    {' '}
-                  </option>
-                  {dadosMarcas.map((dado) => (
-                    <option key={dado.id} value={dado.id}>
-                      {dado.nome}
-                    </option>
-                  ))}
-                </select>
               </FormGroup>
               <Stack spacing={1} padding={1} direction='row'>
                 <button
@@ -153,4 +121,4 @@ function CadastroProduto() {
   );
 }
 
-export default CadastroProduto;
+export default CadastroMarca;

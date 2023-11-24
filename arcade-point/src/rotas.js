@@ -7,6 +7,7 @@ import ListagemProcuras from './views/listagem-procuras';
 import ListagemLeiloes from './views/listagem-leiloes'; 
 import ListagemConservacoes from './views/listagem-conservacoes';
 import ListagemCategorias from './views/listagem-categorias'; 
+import ListagemMarcas from './views/listagem-marcas'; 
     
 
 
@@ -18,6 +19,7 @@ import CadastroProcura from './views/cadastro-procura';
 import CadastroLeilao from './views/cadastro-leilao';
 import CadastroConservacao from './views/cadastro-conservacao';
 import CadastroCategoria from './views/cadastro-categoria';
+import CadastroMarca from './views/cadastro-marca';
 
 import { Route, Routes, BrowserRouter } from 'react-router-dom';
 
@@ -85,6 +87,15 @@ function Rotas(props) {
           element={<CadastroConservacao />}
         />
         <Route path='/listagem-conservacoes' element={<ListagemConservacoes/>} />
+      </Routes>
+
+      <Routes>
+        {/* <Route path='/login' element={<Login />} /> */}
+        <Route
+          path='/cadastro-marca/:idParam?'
+          element={<CadastroMarca />}
+        />
+        <Route path='/listagem-marcas' element={<ListagemMarcas/>} />
       </Routes>
 
     </BrowserRouter>
