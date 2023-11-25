@@ -25,11 +25,13 @@ function CadastroUsuario() {
   const [nome, setNome] = useState('');
   const [email, setEmail] = useState('');
   const [tel, setTel] = useState('');
-  const [cep, setCep] = useState('');
-  const [uf, setUf] = useState('');
-  const [cidade, setCidade] = useState('');
-  const [complemento, setComplemento] = useState('');
+  const [logradouro, setLogradouro] = useState('')
   const [numero, setNumero] = useState('');
+  const [complemento, setComplemento] = useState('');
+  const [bairro, setBairro] = useState('');
+  const [cidade, setCidade] = useState('');
+  const [uf, setUf] = useState('');
+  const [cep, setCep] = useState('');
   const [senha, setSenha] = useState('');
   const [senhaRepeticao, setSenhaRepeticao] = useState('');
   const [admin, setAdmin] = useState(false);
@@ -43,11 +45,13 @@ function CadastroUsuario() {
       setNome('');
       setEmail('');
       setTel('');
-      setCep('');
-      setUf('');
-      setCidade('');
-      setComplemento('');
+      setLogradouro('');
       setNumero('');
+      setComplemento('');
+      setBairro('');
+      setCidade('');
+      setUf('');
+      setCep('');
       setSenha('');
       setSenhaRepeticao('');
       setAdmin(false);
@@ -57,11 +61,13 @@ function CadastroUsuario() {
       setNome(dados.nome);
       setEmail(dados.email);
       setTel(dados.tel);
-      setCep(dados.cep);
-      setUf(dados.uf);
-      setCidade(dados.cidade);
+      setLogradouro(dados.logradouro);
+      setNumero(dados.numero);
       setComplemento(dados.complemento);
-      setNumero(dados.numero)
+      setBairro(dados.bairro);
+      setCidade(dados.cidade);
+      setUf(dados.uf);
+      setCep(dados.cep);
       setSenha('');
       setSenhaRepeticao('');
       setAdmin(dados.admin);
@@ -69,7 +75,7 @@ function CadastroUsuario() {
   }
 
   async function salvar() {
-    let data = { id, cpf, nome, email, tel, cep, uf, cidade, complemento, numero, senha, senhaRepeticao, admin };
+    let data = { id, cpf, nome, email, tel, logradouro, numero, complemento, bairro, cidade, uf, cep, senha, senhaRepeticao, admin };
     data = JSON.stringify(data);
     if (idParam == null) {
       await axios
@@ -108,11 +114,13 @@ function CadastroUsuario() {
       setNome(dados.nome);
       setEmail(dados.email);
       setTel(dados.tel);
-      setCep(dados.cep);
-      setUf(dados.uf);
-      setCidade(dados.cidade);
+      setLogradouro(dados.logradouro);
+      setNumero(dados.numero);
       setComplemento(dados.complemento);
-      setNumero(dados.numero)
+      setBairro(dados.bairro);
+      setCidade(dados.cidade);
+      setUf(dados.uf);
+      setCep(dados.cep);
       setSenha('');
       setSenhaRepeticao('');
       setAdmin(dados.admin);
@@ -174,37 +182,26 @@ function CadastroUsuario() {
                   onChange={(e) => setTel(e.target.value)}
                 />
               </FormGroup>
-              <FormGroup label='Cep: *' htmlFor='inputCep'>
+              <FormGroup label='Logradouro: *' htmlFor='inputLogradouro'>
                 <input
                   type='text'
                   maxLength='11'
-                  id='inputCep'
-                  value={cep}
+                  id='inputLogradouro'
+                  value={logradouro}
                   className='form-control'
-                  name='cep'
-                  onChange={(e) => setCep(e.target.value)}
+                  name='logradouro'
+                  onChange={(e) => setLogradouro(e.target.value)}
                 />
               </FormGroup>
-              <FormGroup label='Uf: *' htmlFor='inputUf'>
+              <FormGroup label='Número: *' htmlFor='inputNumero'>
                 <input
                   type='text'
                   maxLength='11'
-                  id='inputUf'
-                  value={uf}
+                  id='inputNumero'
+                  value={numero}
                   className='form-control'
-                  name='uf'
-                  onChange={(e) => setUf(e.target.value)}
-                />
-              </FormGroup>
-              <FormGroup label='Cidade: *' htmlFor='inputCidade'>
-                <input
-                  type='text'
-                  maxLength='11'
-                  id='inputCidade'
-                  value={cidade}
-                  className='form-control'
-                  name='cidade'
-                  onChange={(e) => setCidade(e.target.value)}
+                  name='numero'
+                  onChange={(e) => setNumero(e.target.value)}
                 />
               </FormGroup>
               <FormGroup label='Complemento: *' htmlFor='inputComplemento'>
@@ -218,15 +215,48 @@ function CadastroUsuario() {
                   onChange={(e) => setComplemento(e.target.value)}
                 />
               </FormGroup>
-              <FormGroup label='Número: *' htmlFor='inputNumero'>
+              <FormGroup label='Bairro: *' htmlFor='inputBairro'>
                 <input
                   type='text'
                   maxLength='11'
-                  id='inputNumero'
-                  value={numero}
+                  id='inputBairro'
+                  value={bairro}
                   className='form-control'
-                  name='numero'
-                  onChange={(e) => setNumero(e.target.value)}
+                  name='bairro'
+                  onChange={(e) => setBairro(e.target.value)}
+                />
+              </FormGroup>
+              <FormGroup label='Cidade: *' htmlFor='inputCidade'>
+                <input
+                  type='text'
+                  maxLength='11'
+                  id='inputCidade'
+                  value={cidade}
+                  className='form-control'
+                  name='cidade'
+                  onChange={(e) => setCidade(e.target.value)}
+                />
+              </FormGroup>
+              <FormGroup label='Uf: *' htmlFor='inputUf'>
+                <input
+                  type='text'
+                  maxLength='11'
+                  id='inputUf'
+                  value={uf}
+                  className='form-control'
+                  name='uf'
+                  onChange={(e) => setUf(e.target.value)}
+                />
+              </FormGroup>
+              <FormGroup label='Cep: *' htmlFor='inputCep'>
+                <input
+                  type='text'
+                  maxLength='11'
+                  id='inputCep'
+                  value={cep}
+                  className='form-control'
+                  name='cep'
+                  onChange={(e) => setCep(e.target.value)}
                 />
               </FormGroup>
               <FormGroup label='Senha: *' htmlFor='inputSenha'>
