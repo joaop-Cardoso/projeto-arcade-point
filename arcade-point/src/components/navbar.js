@@ -1,5 +1,5 @@
 import React from 'react';
-import 'bootswatch/dist/flatly/bootstrap.css';
+import 'bootswatch/dist/pulse/bootstrap.css';
 
 import NavbarItem from './navbarItem';
 
@@ -7,7 +7,7 @@ function Navbar(props) {
   return (
     <div className='navbar navbar-expand-lg fixed-top navbar-dark bg-primary'>
       <div className='container'>
-        <a href='/' className='navbar-brand'>
+        <a href='/index' className='navbar-brand'>
           Arcade Point
         </a>
         <button

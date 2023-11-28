@@ -21,6 +21,8 @@ import CadastroConservacao from './views/cadastro-conservacao';
 import CadastroCategoria from './views/cadastro-categoria';
 import CadastroMarca from './views/cadastro-marca';
 
+import Imagem from './views';
+
 import { Route, Routes, BrowserRouter } from 'react-router-dom';
 
 function Rotas(props) {
@@ -96,6 +98,10 @@ function Rotas(props) {
           element={<CadastroMarca />}
         />
         <Route path='/listagem-marcas' element={<ListagemMarcas/>} />
+      </Routes>
+
+      <Routes>
+      <Route path='/index' element={<Imagem/>} />
       </Routes>
 
     </BrowserRouter>
