@@ -7,7 +7,11 @@ import ListagemProcuras from './views/listagem-procuras';
 import ListagemLeiloes from './views/listagem-leiloes'; 
 import ListagemConservacoes from './views/listagem-conservacoes';
 import ListagemCategorias from './views/listagem-categorias'; 
-import ListagemMarcas from './views/listagem-marcas'; 
+import ListagemMarcas from './views/listagem-marcas';
+import CompraLAnuncios from './views/Compra-l-anuncio';
+import CompraLLeilao from './views/Compra-l-leilao';
+import CompraLProcura from './views/Compra-l-procura';
+
     
 
 
@@ -20,10 +24,15 @@ import CadastroLeilao from './views/cadastro-leilao';
 import CadastroConservacao from './views/cadastro-conservacao';
 import CadastroCategoria from './views/cadastro-categoria';
 import CadastroMarca from './views/cadastro-marca';
+import CadastroCAnuncio from './views/Compra-c-anuncio';
+import CompraCLeilao from './views/Compra-c-leilao';
+import CompraCProcura from './views/Compra-c-procura';
+
 
 import Imagem from './views';
 
 import { Route, Routes, BrowserRouter } from 'react-router-dom';
+import CompraCAnuncio from './views/Compra-c-anuncio';
 
 function Rotas(props) {
   return (
@@ -98,6 +107,41 @@ function Rotas(props) {
           element={<CadastroMarca />}
         />
         <Route path='/listagem-marcas' element={<ListagemMarcas/>} />
+      </Routes>
+
+      <Routes>
+        {/* <Route path='/login' element={<Login />} /> */}
+        <Route
+          path='/Compra-c-Anuncio/:idParam?'
+          element={<CadastroCAnuncio />}
+        />
+        <Route path='/Compra-l-anuncio' element={<CompraLAnuncios/>} />
+      </Routes>
+
+      <Routes>
+      <Route path='/index' element={<Imagem/>} />
+      </Routes>
+
+      <Routes>
+        {/* <Route path='/login' element={<Login />} /> */}
+        <Route
+          path='/Compra-c-leilao/:idParam?'
+          element={<CompraCLeilao />}
+        />
+        <Route path='/Compra-l-leilao' element={<CompraLLeilao/>} />
+      </Routes>
+
+      <Routes>
+      <Route path='/index' element={<Imagem/>} />
+      </Routes>
+
+      <Routes>
+        {/* <Route path='/login' element={<Login />} /> */}
+        <Route
+          path='/Compra-c-procura/:idParam?'
+          element={<CompraCProcura/>}
+        />
+        <Route path='/Compra-l-procura' element={<CompraLProcura/>} />
       </Routes>
 
       <Routes>

@@ -27,6 +27,8 @@ function CadastroAnuncio() {
   const [idCategoria, setIdCategoria] = useState(0);
   const [idConservacao, setIdConservacao] = useState(0);
   const [valor, setValor] = useState('');
+  const [dataInicio, setDataInicio] = useState('');
+  const [dataFim, setDataFim] = useState('');
 
 
   const [dados, setDados] = useState([]);
@@ -39,6 +41,8 @@ function CadastroAnuncio() {
       setIdCategoria(0);
       setIdConservacao(0);
       setValor('')
+      setDataInicio('')
+      setDataFim('')
     } else {
       setId(dados.id);
       setIdProduto(dados.idProduto);
@@ -46,11 +50,13 @@ function CadastroAnuncio() {
       setIdCategoria(dados.idCategoria);
       setIdConservacao(dados.idConservacao);
       setValor(dados.valor)
+      setDataInicio(dados.dataInicio)
+      setDataFim(dados.dataFim)
     }
   }
 
   async function salvar() {
-    let data = { id, idProduto, descricao, idCategoria, idConservacao, valor };
+    let data = { id, idProduto, descricao, idCategoria, idConservacao, valor, dataInicio, dataFim };
     data = JSON.stringify(data);
     if (idParam == null) {
       await axios
@@ -90,6 +96,8 @@ function CadastroAnuncio() {
       setIdCategoria(dados.idCategoria);
       setIdConservacao(dados.idConservacao);
       setValor(dados.valor);
+      setDataInicio(dados.dataInicio);
+      setDataFim(dados.dataFim);
     }
   }
 
@@ -199,7 +207,43 @@ function CadastroAnuncio() {
                   ))}
                 </select>
               </FormGroup>
+
+              <FormGroup label='Valor: ' htmlFor='inputValor'>
+                <input
+                  type='text'
+                  maxLength='11'
+                  id='inputValor'
+                  value={valor}
+                  className='form-control'
+                  name='valor'
+                  onChange={(e) => setValor(e.target.value)}
+                />
+              </FormGroup>
+
+              <FormGroup label='Data Início: ' htmlFor='inputDataInicio'>
+                <input
+                  type='date'
+                  maxLength='11'
+                  id='inputDataInicio'
+                  value={dataInicio}
+                  className='form-control'
+                  name='dataInicio'
+                  onChange={(e) => setDataInicio(e.target.value)}
+                />
+              </FormGroup>
               
+              <FormGroup label='Data Fim: ' htmlFor='inputDataFim'>
+                <input
+                  type='date'
+                  maxLength='11'
+                  id='inputDataFim'
+                  value={dataFim}
+                  className='form-control'
+                  name='dataFim'
+                  onChange={(e) => setDataFim(e.target.value)}
+                />
+              </FormGroup>
+
               <Stack spacing={1} padding={1} direction='row'>
                 <button
                   onClick={salvar}
