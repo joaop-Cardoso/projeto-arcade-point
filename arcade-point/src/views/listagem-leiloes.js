@@ -77,7 +77,6 @@ function ListagemLeiloes() {
                 <thead>
                   <tr>
                     <th scope='col'>Produto</th>
-                    <th scope='col'>Descrição</th>
                     <th scope='col'>Categoria</th>
                     <th scope='col'>Conservação</th>
                     <th scope='col'>Valor Inicial</th>
@@ -88,7 +87,6 @@ function ListagemLeiloes() {
                   {dados.map((dado) => (
                     <tr key={dado.id}>
                       <td>{dado.produtoNome}</td>
-                      <td>{dado.descricao}</td>
                       <td>{dado.categoriaNome}</td>
                       <td>{dado.conservacaoNome}</td>
                       <td>{dado.valorInicial}</td>

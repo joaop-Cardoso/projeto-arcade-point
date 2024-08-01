@@ -24,6 +24,10 @@ function CadastroProduto() {
   const [id, setId] = useState('');
   const [nome, setNome] = useState('');
   const [idMarca, setIdMarca] = useState('');
+  const [idPessoa, setIdPessoa] = useState('');
+  const [descricao, setDescricao] = useState('');
+  const [idConservacao, setIdConservacao] = useState('');
+  const [idCategoriaProduto, setIdCategoriaProduto] = useState('');
 
   const [dados, setDados] = useState([]);
 
@@ -32,10 +36,19 @@ function CadastroProduto() {
       setId('');
       setNome('');
       setIdMarca(0);
+      setIdPessoa(0);
+      setDescricao('');
+      setIdConservacao(0);
+      setIdCategoriaProduto(0);
+
     } else {
       setId(dados.id);
       setNome(dados.login);
       setIdMarca(dados.idMarca);
+      setIdPessoa(dados.idPessoa);
+      setDescricao(dados.descricao);
+      setIdConservacao(dados.idConservacao);
+      setIdCategoriaProduto(dados.idCategoriaProduto);
     }
   }
 
@@ -77,10 +90,36 @@ function CadastroProduto() {
       setId(dados.id);
       setNome(dados.nome);
       setIdMarca(dados.idMarca);
+      setIdPessoa(dados.idPessoa);
+      setDescricao(dados.descricao);
+      setIdConservacao(dados.idConservacao);
+      setIdCategoriaProduto(dados.idCategoriaProduto);
     }
   }
 
   const [dadosMarcas, setDadosMarcas] = React.useState(null);
+  const [dadosPessoas, setDadosPessoas] = React.useState(null);
+  const [dadosConservacoes, setDadosConservacoes] = React.useState(null);
+  const [dadosCategoriaProdutos, setDadosCategoriaProdutos] = React.useState(null);
+
+
+  useEffect(() => {
+    axios.get(`${BASE_URL}/pessoas`).then((response) => {
+      setDadosPessoas(response.data);
+    });
+  }, []);
+
+  useEffect(() => {
+    axios.get(`${BASE_URL}/conservacoes`).then((response) => {
+      setDadosConservacoes(response.data);
+    });
+  }, []);
+
+  useEffect(() => {
+    axios.get(`${BASE_URL}/CategoriaProdutos`).then((response) => {
+      setDadosCategoriaProdutos(response.data);
+    });
+  }, []);
 
   useEffect(() => {
     axios.get(`${BASE_URL}/marcas`).then((response) => {
@@ -94,6 +133,10 @@ function CadastroProduto() {
 
   if (!dados) return null;
   if (!dadosMarcas) return null;
+  if (!dadosPessoas) return null;
+  if (!dadosConservacoes) return null;
+  if (!dadosCategoriaProdutos) return null;
+
 
   return (
     <div className='container'>
@@ -111,6 +154,16 @@ function CadastroProduto() {
                   onChange={(e) => setNome(e.target.value)}
                 />
               </FormGroup>
+              <FormGroup label='Descrição: *' htmlFor='inputDescrição'>
+                <input
+                  type='text'
+                  id='inputDescrição'
+                  value={descricao}
+                  className='form-control'
+                  name='descrição'
+                  onChange={(e) => setDescricao(e.target.value)}
+                />
+              </FormGroup>
               <FormGroup label='Marca: *' htmlFor='inputMarca'>
                 <select
                   className='form-select'
@@ -123,6 +176,60 @@ function CadastroProduto() {
                     {' '}
                   </option>
                   {dadosMarcas.map((dado) => (
+                    <option key={dado.id} value={dado.id}>
+                      {dado.nome}
+                    </option>
+                  ))}
+                </select>
+              </FormGroup>
+              <FormGroup label='Conservação: *' htmlFor='inputConservacao'>
+                <select
+                  className='form-select'
+                  id='selectConservacao'
+                  name='idConservacao'
+                  value={idConservacao}
+                  onChange={(e) => setIdConservacao(e.target.value)}
+                >
+                  <option key='0' value='0'>
+                    {' '}
+                  </option>
+                  {dadosConservacoes.map((dado) => (
+                    <option key={dado.id} value={dado.id}>
+                      {dado.nome}
+                    </option>
+                  ))}
+                </select>
+              </FormGroup>
+              <FormGroup label='Pessoa: *' htmlFor='inputPessoa'>
+                <select
+                  className='form-select'
+                  id='selectPessoa'
+                  name='idPessoa'
+                  value={idPessoa}
+                  onChange={(e) => setIdPessoa(e.target.value)}
+                >
+                  <option key='0' value='0'>
+                    {' '}
+                  </option>
+                  {dadosPessoas.map((dado) => (
+                    <option key={dado.id} value={dado.id}>
+                      {dado.nome}
+                    </option>
+                  ))}
+                </select>
+              </FormGroup>
+              <FormGroup label='Categoria: *' htmlFor='inputCategoriaProduto'>
+                <select
+                  className='form-select'
+                  id='selectCategoriaProduto'
+                  name='idCategoriaProduto'
+                  value={idCategoriaProduto}
+                  onChange={(e) => setIdCategoriaProduto(e.target.value)}
+                >
+                  <option key='0' value='0'>
+                    {' '}
+                  </option>
+                  {dadosCategoriaProdutos.map((dado) => (
                     <option key={dado.id} value={dado.id}>
                       {dado.nome}
                     </option>

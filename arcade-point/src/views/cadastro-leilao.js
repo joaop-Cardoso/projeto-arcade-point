@@ -23,9 +23,6 @@ function CadastroLeilao() {
 
   const [id, setId] = useState('');
   const [idProduto, setIdProduto] = useState(0);
-  const [descricao, setDecricao] = useState('');
-  const [idCategoria, setIdCategoria] = useState(0);
-  const [idConservacao, setIdConservacao] = useState('');
   const [valorInicial, setValorInicial] = useState('');
   const [valorAumento, setValorAumento] = useState('');
   const [dataInicio, setDataInicio] = useState('');
@@ -40,9 +37,6 @@ function CadastroLeilao() {
     if (idParam == null) {
       setId('');
       setIdProduto(0);
-      setDecricao('');
-      setIdCategoria(0);
-      setIdConservacao(0);
       setValorInicial('');
       setValorAumento('');
       setDataInicio('');
@@ -52,9 +46,6 @@ function CadastroLeilao() {
     } else {
       setId(dados.id);
       setIdProduto(dados.idProduto);
-      setDecricao(dados.descricao);
-      setIdCategoria(dados.idCategoria);
-      setIdConservacao(dados.idConservacao);
       setValorInicial(dados.valorInicial);
       setValorAumento(dados.valorAumento);
       setDataInicio(dados.dataInicio);
@@ -65,7 +56,7 @@ function CadastroLeilao() {
   }
 
   async function salvar() {
-    let data = { id, idProduto, descricao, idCategoria, idConservacao, valorInicial, valorAumento, dataInicio, horaInicio, dataInicio, dataFim };
+    let data = { id, idProduto, valorInicial, valorAumento, dataInicio, horaInicio, dataInicio, dataFim };
     data = JSON.stringify(data);
     if (idParam == null) {
       await axios
@@ -101,9 +92,6 @@ function CadastroLeilao() {
     });
     setId(dados.id);
     setIdProduto(dados.idProduto);
-    setDecricao(dados.descricao);
-    setIdCategoria(dados.idCategoria);
-    setIdConservacao(dados.idConservacao);
     setValorInicial(dados.valorInicial);
     setValorAumento(dados.valorAumento);
     setDataInicio(dados.dataInicio);
@@ -121,31 +109,12 @@ function CadastroLeilao() {
     });
   }, []);
 
-
-  const [dadosCategorias, setDadosCategorias] = React.useState(null);
-
-  useEffect(() => {
-    axios.get(`${BASE_URL}/categorias`).then((response) => {
-      setDadosCategorias(response.data);
-    });
-  }, []);
-
-  const [dadosConservacoes, setDadosConservacoes] = React.useState(null);
-
-  useEffect(() => {
-    axios.get(`${BASE_URL}/conservacoes`).then((response) => {
-      setDadosConservacoes(response.data);
-    });
-  }, []);
-
   useEffect(() => {
     buscar(); // eslint-disable-next-line
   }, [id]);
 
   if (!dados) return null;
   if (!dadosProdutos) return null;
-  if (!dadosCategorias) return null;
-  if (!dadosConservacoes) return null;
 
   return (
     <div className='container'>
@@ -165,53 +134,6 @@ function CadastroLeilao() {
                     {' '}
                   </option>
                   {dadosProdutos.map((dado) => (
-                    <option key={dado.id} value={dado.id}>
-                      {dado.nome}
-                    </option>
-                  ))}
-                </select>
-              </FormGroup>
-              <FormGroup label='Descrição: ' htmlFor='inputDescricao'>
-                <input
-                  type='text'
-                  maxLength='11'
-                  id='inputDescricao'
-                  value={descricao}
-                  className='form-control'
-                  name='descricao'
-                  onChange={(e) => setDecricao(e.target.value)}
-                />
-              </FormGroup>
-              <FormGroup label='Categoria: *' htmlFor='inputCategoria'>
-                <select
-                  className='form-select'
-                  id='selectCategoria'
-                  name='idCategoria'
-                  value={idCategoria}
-                  onChange={(e) => setIdCategoria(e.target.value)}
-                >
-                  <option key='0' value='0'>
-                    {' '}
-                  </option>
-                  {dadosCategorias.map((dado) => (
-                    <option key={dado.id} value={dado.id}>
-                      {dado.nome}
-                    </option>
-                  ))}
-                </select>
-              </FormGroup>
-              <FormGroup label='Conservação: *' htmlFor='inputConservacao'>
-                <select
-                  className='form-select'
-                  id='selectConservacao'
-                  name='idConservacao'
-                  value={idConservacao}
-                  onChange={(e) => setIdConservacao(e.target.value)}
-                >
-                  <option key='0' value='0'>
-                    {' '}
-                  </option>
-                  {dadosConservacoes.map((dado) => (
                     <option key={dado.id} value={dado.id}>
                       {dado.nome}
                     </option>
