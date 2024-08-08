@@ -16,7 +16,7 @@ import EditIcon from '@mui/icons-material/Edit';
 import axios from 'axios';
 import { BASE_URL } from '../config/axios';
 
-const baseURL = `${BASE_URL}/categorias`;
+const baseURL = `${BASE_URL}/categoriaProdutos`;
 
 function ListagemCategorias() {
   const navigate = useNavigate();
@@ -76,14 +76,14 @@ function ListagemCategorias() {
               <table className='table table-hover'>
                 <thead>
                   <tr>
-                    <th scope='col'>Nome</th>
+                    <th scope='col'>Categoria</th>
                     <th scope='col'>Ações</th>
                   </tr>
                 </thead>
                 <tbody>
                   {dados.map((dado) => (
                     <tr key={dado.id}>
-                      <td>{dado.nome}</td>
+                      <td>{dado.categoria}</td>
                       <td>
                         <Stack spacing={1} padding={0} direction='row'>
                           <IconButton

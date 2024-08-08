@@ -11,7 +11,6 @@ import { mensagemSucesso, mensagemErro } from '../components/toastr';
 import '../custom.css';
 
 import axios from 'axios';
-import { BASE_URL2 } from '../config/axios2';
 import { BASE_URL } from '../config/axios';
 
 function CadastroProcura() {
@@ -19,7 +18,7 @@ function CadastroProcura() {
 
   const navigate = useNavigate();
 
-  const baseURL = `${BASE_URL2}/procuras`;
+  const baseURL = `${BASE_URL}/procuras`;
 
   const [id, setId] = useState('');
   const [idProduto, setIdProduto] = useState(0);
@@ -37,6 +36,7 @@ function CadastroProcura() {
       setIdProduto(dados.idProduto);
       setValorAproximado(dados.valorAproximado)
     }
+    navigate('/listagem-procuras');
   }
 
   async function salvar() {
@@ -83,7 +83,7 @@ function CadastroProcura() {
   const [dadosProdutos, setDadosProdutos] = React.useState(null);
 
   useEffect(() => {
-    axios.get(`${BASE_URL2}/produtos`).then((response) => {
+    axios.get(`${BASE_URL}/produtos`).then((response) => {
       setDadosProdutos(response.data);
     });
   }, []);
@@ -132,14 +132,14 @@ function CadastroProcura() {
               </FormGroup>
               <Stack spacing={1} padding={1} direction='row'>
                 <button
-                  // onClick={salvar}
+                  onClick={salvar}
                   type='button'
                   className='btn btn-success'
                 >
                   Salvar
                 </button>
                 <button
-                  // onClick={inicializar}
+                  onClick={inicializar}
                   type='button'
                   className='btn btn-danger'
                 >

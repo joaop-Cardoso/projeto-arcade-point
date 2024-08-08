@@ -16,17 +16,17 @@ import EditIcon from '@mui/icons-material/Edit';
 import axios from 'axios';
 import { BASE_URL } from '../config/axios';
 
-const baseURL = `${BASE_URL}/produtos`;
+const baseURL = `${BASE_URL}/pessoas`;
 
-function ListagemProdutos() {
+function ListagemPessoas() {
   const navigate = useNavigate();
 
   const cadastrar = () => {
-    navigate(`/cadastro-produto`);
+    navigate(`/cadastro-pessoa`);
   };
 
   const editar = (id) => {
-    navigate(`/cadastro-produto/${id}`);
+    navigate(`/cadastro-pessoa/${id}`);
   };
 
   const [dados, setDados] = React.useState(null);
@@ -40,7 +40,7 @@ function ListagemProdutos() {
         headers: { 'Content-Type': 'application/json' },
       })
       .then(function (response) {
-        mensagemSucesso(`Produto excluído com sucesso!`);
+        mensagemSucesso(`Pessoa excluída com sucesso!`);
         setDados(
           dados.filter((dado) => {
             return dado.id !== id;
@@ -48,7 +48,7 @@ function ListagemProdutos() {
         );
       })
       .catch(function (error) {
-        mensagemErro(`Erro ao excluir o produto`);
+        mensagemErro(`Erro ao excluir a Pessoa`);
       });
   }
 
@@ -62,7 +62,7 @@ function ListagemProdutos() {
 
   return (
     <div className='container'>
-      <Card title='Listagem de Produtos'>
+      <Card title='Listagem de Pessoas'>
         <div className='row'>
           <div className='col-lg-12'>
             <div className='bs-component'>
@@ -71,13 +71,16 @@ function ListagemProdutos() {
                 className='btn btn-warning'
                 onClick={() => cadastrar()}
               >
-                Novo Produto
+                Nova Pessoa
               </button>
               <table className='table table-hover'>
                 <thead>
                   <tr>
                     <th scope='col'>Nome</th>
-                    <th scope='col'>Marca</th>
+                    <th scope='col'>Cpf</th>
+                    <th scope='col'>E-mail</th>
+                    <th scope='col'>Telefone</th>
+                    <th scope='col'>Administrador</th>
                     <th scope='col'>Ações</th>
                   </tr>
                 </thead>
@@ -85,7 +88,10 @@ function ListagemProdutos() {
                   {dados.map((dado) => (
                     <tr key={dado.id}>
                       <td>{dado.nome}</td>
-                      <td>{dado.nomeMarca}</td>
+                      <td>{dado.cpf}</td>
+                      <td>{dado.email}</td>
+                      <td>{dado.numeroTelefone}</td>
+                      <td>{dado.admin ? 'Sim' : 'Não'}</td>
                       <td>
                         <Stack spacing={1} padding={0} direction='row'>
                           <IconButton
@@ -114,4 +120,4 @@ function ListagemProdutos() {
   );
 }
 
-export default ListagemProdutos;
+export default ListagemPessoas;

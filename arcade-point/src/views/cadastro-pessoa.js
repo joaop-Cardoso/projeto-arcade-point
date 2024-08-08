@@ -13,18 +13,18 @@ import '../custom.css';
 import axios from 'axios';
 import { BASE_URL } from '../config/axios';
 
-function CadastroUsuario() {
+function CadastroPessoa() {
   const { idParam } = useParams();
 
   const navigate = useNavigate();
 
-  const baseURL = `${BASE_URL}/usuarios`;
+  const baseURL = `${BASE_URL}/pessoas`;
 
   const [id, setId] = useState('');
   const [cpf, setCpf] = useState('');
   const [nome, setNome] = useState('');
   const [email, setEmail] = useState('');
-  const [idTelefones, setIdTelefones] = useState('');
+  const [idTelefone, setIdTelefone] = useState('');
   const [logradouro, setLogradouro] = useState('')
   const [numero, setNumero] = useState('');
   const [complemento, setComplemento] = useState('');
@@ -43,7 +43,7 @@ function CadastroUsuario() {
       setCpf('');
       setNome('');
       setEmail('');
-      setIdTelefones(0);
+      setIdTelefone(0);
       setLogradouro('');
       setNumero('');
       setComplemento('');
@@ -58,7 +58,7 @@ function CadastroUsuario() {
       setCpf(dados.cpf);
       setNome(dados.nome);
       setEmail(dados.email);
-      setIdTelefones(dados.idTelefones);
+      setIdTelefone(dados.idTelefone);
       setLogradouro(dados.logradouro);
       setNumero(dados.numero);
       setComplemento(dados.complemento);
@@ -69,10 +69,11 @@ function CadastroUsuario() {
       setSenhaRepeticao('');
       setAdmin(dados.admin);
     }
+    navigate('/listagem-pessoas');
   }
 
   async function salvar() {
-    let data = { id, cpf, nome, email, idTelefones, logradouro, numero, complemento, bairro, idLocalidade, cep, senha, senhaRepeticao, admin };
+    let data = { id, cpf, nome, email, idTelefone, logradouro, numero, complemento, bairro, idLocalidade, cep, senha, senhaRepeticao, admin };
     data = JSON.stringify(data);
     if (idParam == null) {
       await axios
@@ -80,8 +81,8 @@ function CadastroUsuario() {
           headers: { 'Content-Type': 'application/json' },
         })
         .then(function (response) {
-          mensagemSucesso(`Usuário ${nome} cadastrado com sucesso!`);
-          navigate(`/listagem-usuarios`);
+          mensagemSucesso(`Pessoa ${nome} cadastrada com sucesso!`);
+          navigate(`/listagem-pessoas`);
         })
         .catch(function (error) {
           mensagemErro(error.response.data);
@@ -92,8 +93,8 @@ function CadastroUsuario() {
           headers: { 'Content-Type': 'application/json' },
         })
         .then(function (response) {
-          mensagemSucesso(`Usuário ${nome} alterado com sucesso!`);
-          navigate(`/listagem-usuarios`);
+          mensagemSucesso(`Pessoa ${nome} alterada com sucesso!`);
+          navigate(`/listagem-pessoas`);
         })
         .catch(function (error) {
           mensagemErro(error.response.data);
@@ -110,7 +111,7 @@ function CadastroUsuario() {
       setCpf(dados.cpf);
       setNome(dados.nome);
       setEmail(dados.email);
-      setIdTelefones(dados.idTelefones);
+      setIdTelefone(dados.idTelefone);
       setLogradouro(dados.logradouro);
       setNumero(dados.numero);
       setComplemento(dados.complemento);
@@ -127,13 +128,13 @@ function CadastroUsuario() {
   const [dadosLocalidades, setDadosLocalidades] = React.useState(null); 
 
   useEffect(() => {
-    axios.get(`${BASE_URL}/idTelefones`).then((response) => {
+    axios.get(`${BASE_URL}/telefones`).then((response) => {
       setDadosTelefones(response.data);
     });
   }, []);
 
   useEffect(() => {
-    axios.get(`${BASE_URL}/idLocalidades`).then((response) => {
+    axios.get(`${BASE_URL}/localidades`).then((response) => {
       setDadosLocalidades(response.data);
     });
   }, []);
@@ -148,7 +149,7 @@ function CadastroUsuario() {
 
   return (
     <div className='container'>
-      <Card title='Cadastro de Usuário'>
+      <Card title='Cadastro de Pessoa'>
         <div className='row'>
           <div className='col-lg-12'>
             <div className='bs-component'>
@@ -176,7 +177,7 @@ function CadastroUsuario() {
               <FormGroup label='E-mail: *' htmlFor='inputEmail'>
                 <input
                   type='text'
-                  maxLength='11'
+                  maxLength='320'
                   id='inputEmail'
                   value={email}
                   className='form-control'
@@ -189,15 +190,15 @@ function CadastroUsuario() {
                   className='form-select'
                   id='selectTelefone'
                   name='idTelefone'
-                  value={idTelefones}
-                  onChange={(e) => setIdTelefones(e.target.value)}
+                  value={idTelefone}
+                  onChange={(e) => setIdTelefone(e.target.value)}
                 >
                   <option key='0' value='0'>
                     {' '}
                   </option>
                   {dadosTelefones.map((dado) => (
                     <option key={dado.id} value={dado.id}>
-                      {dado.nome}
+                      {dado.telefone}
                     </option>
                   ))}
                 </select>
@@ -215,7 +216,7 @@ function CadastroUsuario() {
                   </option>
                   {dadosLocalidades.map((dado) => (
                     <option key={dado.id} value={dado.id}>
-                      {dado.nome}
+                      {dado.cidade}
                     </option>
                   ))}
                 </select>
@@ -223,7 +224,7 @@ function CadastroUsuario() {
               <FormGroup label='Logradouro: *' htmlFor='inputLogradouro'>
                 <input
                   type='text'
-                  maxLength='11'
+                  maxLength='50'
                   id='inputLogradouro'
                   value={logradouro}
                   className='form-control'
@@ -330,4 +331,4 @@ function CadastroUsuario() {
   );
 }
 
-export default CadastroUsuario;
+export default CadastroPessoa;

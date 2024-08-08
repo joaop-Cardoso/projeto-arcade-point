@@ -53,6 +53,7 @@ function CadastroLeilao() {
       setDataFim(dados.dataFim);
       setHoraFim(dados.horaFim);
     }
+    navigate('/listagem-leiloes');
   }
 
   async function salvar() {

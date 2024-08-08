@@ -18,25 +18,26 @@ function CadastroCategoria() {
 
   const navigate = useNavigate();
 
-  const baseURL = `${BASE_URL}/categorias`;
+  const baseURL = `${BASE_URL}/categoriaProdutos`;
 
   const [id, setId] = useState('');
-  const [nome, setNome] = useState('');
+  const [categoria, setCategoria] = useState('');
 
   const [dados, setDados] = useState([]);
 
   function inicializar() {
     if (idParam == null) {
       setId('');
-      setNome('');
+      setCategoria('');
     } else {
       setId(dados.id);
-      setNome(dados.login);
+      setCategoria(dados.categoria);
     }
+    navigate('/listagem-categorias');
   }
 
   async function salvar() {
-    let data = { id, nome };
+    let data = { id, categoria };
     data = JSON.stringify(data);
     if (idParam == null) {
       await axios
@@ -44,7 +45,7 @@ function CadastroCategoria() {
           headers: { 'Content-Type': 'application/json' },
         })
         .then(function (response) {
-          mensagemSucesso(`Categoria ${nome} cadastrada com sucesso!`);
+          mensagemSucesso(`Categoria ${categoria} cadastrada com sucesso!`);
           navigate(`/listagem-categorias`);
         })
         .catch(function (error) {
@@ -56,7 +57,7 @@ function CadastroCategoria() {
           headers: { 'Content-Type': 'application/json' },
         })
         .then(function (response) {
-          mensagemSucesso(`Categoria ${nome} alterada com sucesso!`);
+          mensagemSucesso(`Categoria ${categoria} alterada com sucesso!`);
           navigate(`/listagem-categorias`);
         })
         .catch(function (error) {
@@ -71,7 +72,7 @@ function CadastroCategoria() {
       setDados(response.data);
     });
     setId(dados.id);
-    setNome(dados.nome);
+    setCategoria(dados.categoria);
   }
   }
 
@@ -91,10 +92,10 @@ function CadastroCategoria() {
                 <input
                   type='text'
                   id='inputNome'
-                  value={nome}
+                  value={categoria}
                   className='form-control'
                   name='nome'
-                  onChange={(e) => setNome(e.target.value)}
+                  onChange={(e) => setCategoria(e.target.value)}
                 />
               </FormGroup>
               <Stack spacing={1} padding={1} direction='row'>

@@ -11,7 +11,6 @@ import { mensagemSucesso, mensagemErro } from '../components/toastr';
 import '../custom.css';
 
 import axios from 'axios';
-import { BASE_URL2 } from '../config/axios2';
 import { BASE_URL } from '../config/axios';
 
 function CadastroAnuncio() {
@@ -19,7 +18,7 @@ function CadastroAnuncio() {
 
   const navigate = useNavigate();
 
-  const baseURL = `${BASE_URL2}/anuncios`;
+  const baseURL = `${BASE_URL}/anuncios`;
 
   const [id, setId] = useState('');
   const [idProduto, setIdProduto] = useState(0);
@@ -38,6 +37,7 @@ function CadastroAnuncio() {
       setIdProduto(dados.idProduto);
       setValor(dados.valor)
     }
+    navigate('/listagem-anuncios');
   }
 
   async function salvar() {
@@ -84,7 +84,7 @@ function CadastroAnuncio() {
   const [dadosProdutos, setDadosProdutos] = React.useState(null);
 
   useEffect(() => {
-    axios.get(`${BASE_URL2}/produtos`).then((response) => {
+    axios.get(`${BASE_URL}/produtos`).then((response) => {
       setDadosProdutos(response.data);
     });
   }, []);

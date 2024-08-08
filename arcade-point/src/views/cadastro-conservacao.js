@@ -21,22 +21,23 @@ function CadastroConservacao() {
   const baseURL = `${BASE_URL}/conservacoes`;
 
   const [id, setId] = useState('');
-  const [nome, setNome] = useState('');
+  const [conservacao, setConservacao] = useState('');
 
   const [dados, setDados] = useState([]);
 
   function inicializar() {
     if (idParam == null) {
       setId('');
-      setNome('');
+      setConservacao('');
     } else {
       setId(dados.id);
-      setNome(dados.login);
+      setConservacao(dados.conservacao);
     }
+    navigate('/listagem-conservacoes');
   }
 
   async function salvar() {
-    let data = { id, nome };
+    let data = { id, conservacao };
     data = JSON.stringify(data);
     if (idParam == null) {
       await axios
@@ -44,7 +45,7 @@ function CadastroConservacao() {
           headers: { 'Content-Type': 'application/json' },
         })
         .then(function (response) {
-          mensagemSucesso(`Tipo de conservação ${nome} cadastrada com sucesso!`);
+          mensagemSucesso(`Tipo de conservação ${conservacao} cadastrada com sucesso!`);
           navigate(`/listagem-conservacoes`);
         })
         .catch(function (error) {
@@ -56,8 +57,8 @@ function CadastroConservacao() {
           headers: { 'Content-Type': 'application/json' },
         })
         .then(function (response) {
-          mensagemSucesso(`Tipo de conservação ${nome} alterada com sucesso!`);
-          navigate(`/listagem-conservacao`);
+          mensagemSucesso(`Tipo de conservação ${conservacao} alterada com sucesso!`);
+          navigate(`/listagem-conservacoes`);
         })
         .catch(function (error) {
           mensagemErro(error.response.data);
@@ -71,7 +72,7 @@ function CadastroConservacao() {
       setDados(response.data);
     });
     setId(dados.id);
-    setNome(dados.nome);
+    setConservacao(dados.conservacao);
   }
   }
 
@@ -91,10 +92,10 @@ function CadastroConservacao() {
                 <input
                   type='text'
                   id='inputNome'
-                  value={nome}
+                  value={conservacao}
                   className='form-control'
                   name='nome'
-                  onChange={(e) => setNome(e.target.value)}
+                  onChange={(e) => setConservacao(e.target.value)}
                 />
               </FormGroup>
               <Stack spacing={1} padding={1} direction='row'>

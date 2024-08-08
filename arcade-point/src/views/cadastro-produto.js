@@ -11,7 +11,6 @@ import { mensagemSucesso, mensagemErro } from '../components/toastr';
 import '../custom.css';
 
 import axios from 'axios';
-import { BASE_URL2 } from '../config/axios2';
 import { BASE_URL } from '../config/axios';
 
 function CadastroProduto() {
@@ -19,7 +18,7 @@ function CadastroProduto() {
 
   const navigate = useNavigate();
 
-  const baseURL = `${BASE_URL2}/produtos`;
+  const baseURL = `${BASE_URL}/produtos`;
 
   const [id, setId] = useState('');
   const [nome, setNome] = useState('');
@@ -27,7 +26,7 @@ function CadastroProduto() {
   const [idPessoa, setIdPessoa] = useState('');
   const [descricao, setDescricao] = useState('');
   const [idConservacao, setIdConservacao] = useState('');
-  const [idCategoriaProduto, setIdCategoriaProduto] = useState('');
+  const [idCategoriaProdutos, setIdCategoriaProdutos] = useState('');
 
   const [dados, setDados] = useState([]);
 
@@ -39,21 +38,22 @@ function CadastroProduto() {
       setIdPessoa(0);
       setDescricao('');
       setIdConservacao(0);
-      setIdCategoriaProduto(0);
+      setIdCategoriaProdutos(0);
 
     } else {
       setId(dados.id);
-      setNome(dados.login);
+      setNome(dados.nome);
       setIdMarca(dados.idMarca);
       setIdPessoa(dados.idPessoa);
       setDescricao(dados.descricao);
       setIdConservacao(dados.idConservacao);
-      setIdCategoriaProduto(dados.idCategoriaProduto);
+      setIdCategoriaProdutos(dados.idCategoriaProdutos);
     }
+    navigate('/listagem-produtos');
   }
 
   async function salvar() {
-    let data = { id, nome, idMarca };
+    let data = { id, nome, idMarca, idPessoa, descricao, idConservacao, idCategoriaProdutos };
     data = JSON.stringify(data);
     if (idParam == null) {
       await axios
@@ -93,7 +93,7 @@ function CadastroProduto() {
       setIdPessoa(dados.idPessoa);
       setDescricao(dados.descricao);
       setIdConservacao(dados.idConservacao);
-      setIdCategoriaProduto(dados.idCategoriaProduto);
+      setIdCategoriaProdutos(dados.idCategoriaProdutos);
     }
   }
 
@@ -116,7 +116,7 @@ function CadastroProduto() {
   }, []);
 
   useEffect(() => {
-    axios.get(`${BASE_URL}/CategoriaProdutos`).then((response) => {
+    axios.get(`${BASE_URL}/categoriaProdutos`).then((response) => {
       setDadosCategoriaProdutos(response.data);
     });
   }, []);
@@ -177,7 +177,7 @@ function CadastroProduto() {
                   </option>
                   {dadosMarcas.map((dado) => (
                     <option key={dado.id} value={dado.id}>
-                      {dado.nome}
+                      {dado.marca}
                     </option>
                   ))}
                 </select>
@@ -195,7 +195,7 @@ function CadastroProduto() {
                   </option>
                   {dadosConservacoes.map((dado) => (
                     <option key={dado.id} value={dado.id}>
-                      {dado.nome}
+                      {dado.conservacao}
                     </option>
                   ))}
                 </select>
@@ -223,15 +223,15 @@ function CadastroProduto() {
                   className='form-select'
                   id='selectCategoriaProduto'
                   name='idCategoriaProduto'
-                  value={idCategoriaProduto}
-                  onChange={(e) => setIdCategoriaProduto(e.target.value)}
+                  value={idCategoriaProdutos}
+                  onChange={(e) => setIdCategoriaProdutos(e.target.value)}
                 >
                   <option key='0' value='0'>
                     {' '}
                   </option>
                   {dadosCategoriaProdutos.map((dado) => (
                     <option key={dado.id} value={dado.id}>
-                      {dado.nome}
+                      {dado.categoria}
                     </option>
                   ))}
                 </select>

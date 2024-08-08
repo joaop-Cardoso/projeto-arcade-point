@@ -1,6 +1,6 @@
 import React from 'react';
 
-import ListagemUsuarios from './views/listagem-usuarios';
+import ListagemPessoas from './views/listagem-pessoas';
 import ListagemProdutos from './views/listagem-produtos';
 import ListagemAnuncios from './views/listagem-anuncios';
 import ListagemProcuras from './views/listagem-procuras'; 
@@ -11,12 +11,14 @@ import ListagemMarcas from './views/listagem-marcas';
 import CompraLAnuncios from './views/Compra-l-anuncio';
 import CompraLLeilao from './views/Compra-l-leilao';
 import CompraLProcura from './views/Compra-l-procura';
+import ListagemLocalidades from './views/listagem-localidades';
+import ListagemTelefones from './views/listagem-telefones';
 
     
 
 
 import Login from './views/login';
-import CadastroUsuario from './views/cadastro-usuario';
+import CadastroPessoa from './views/cadastro-pessoa';
 import CadastroProduto from './views/cadastro-produto';
 import CadastroAnuncio from './views/cadastro-anuncio';
 import CadastroProcura from './views/cadastro-procura';
@@ -27,6 +29,8 @@ import CadastroMarca from './views/cadastro-marca';
 import CadastroCAnuncio from './views/Compra-c-anuncio';
 import CompraCLeilao from './views/Compra-c-leilao';
 import CompraCProcura from './views/Compra-c-procura';
+import CadastroLocalidade from './views/cadastro-localidade';
+import CadastroTelefone from './views/cadastro-telefone';
 
 
 import Imagem from './views';
@@ -40,10 +44,10 @@ function Rotas(props) {
       <Routes>
         {/* <Route path='/login' element={<Login />} /> */}
         <Route
-          path='/cadastro-usuarios/:idParam?'
-          element={<CadastroUsuario />}
+          path='/cadastro-pessoa/:idParam?'
+          element={<CadastroPessoa />}
         />
-        <Route path='/listagem-usuarios' element={<ListagemUsuarios />} />
+        <Route path='/listagem-pessoas' element={<ListagemPessoas/>} />
       </Routes>
 
       <Routes>
@@ -146,6 +150,24 @@ function Rotas(props) {
 
       <Routes>
       <Route path='/index' element={<Imagem/>} />
+      </Routes>
+
+      <Routes>
+        {/* <Route path='/login' element={<Login />} /> */}
+        <Route
+          path='/cadastro-localidade/:idParam?'
+          element={<CadastroLocalidade />}
+        />
+        <Route path='/listagem-localidades' element={<ListagemLocalidades/>} />
+      </Routes>
+
+      <Routes>
+        {/* <Route path='/login' element={<Login />} /> */}
+        <Route
+          path='/cadastro-telefone/:idParam?'
+          element={<CadastroTelefone />}
+        />
+        <Route path='/listagem-telefones' element={<ListagemTelefones/>} />
       </Routes>
 
     </BrowserRouter>

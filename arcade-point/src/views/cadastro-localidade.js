@@ -13,31 +13,34 @@ import '../custom.css';
 import axios from 'axios';
 import { BASE_URL } from '../config/axios';
 
-function CadastroMarca() {
+function CadastroLocalidade() {
   const { idParam } = useParams();
 
   const navigate = useNavigate();
 
-  const baseURL = `${BASE_URL}/marcas`;
+  const baseURL = `${BASE_URL}/localidades`;
 
   const [id, setId] = useState('');
-  const [marca, setMarca] = useState('');
+  const [uf, setUf] = useState('');
+  const [cidade, setCidade] = useState('');
 
   const [dados, setDados] = useState([]);
 
   function inicializar() {
     if (idParam == null) {
       setId('');
-      setMarca('');
+      setUf('');
+      setCidade('');
     } else {
       setId(dados.id);
-      setMarca(dados.marca);
+      setUf(dados.uf);
+      setCidade(dados.cidade);
     }
-    navigate('/listagem-marcas');
+    navigate('/listagem-localidades');
   }
 
   async function salvar() {
-    let data = { id, marca };
+    let data = { id, uf, cidade };
     data = JSON.stringify(data);
     if (idParam == null) {
       await axios
@@ -45,8 +48,8 @@ function CadastroMarca() {
           headers: { 'Content-Type': 'application/json' },
         })
         .then(function (response) {
-          mensagemSucesso(`Marca ${marca} cadastrada com sucesso!`);
-          navigate(`/listagem-marcas`);
+          mensagemSucesso(`Localidade ${cidade} cadastrada com sucesso!`);
+          navigate(`/listagem-localidades`);
         })
         .catch(function (error) {
           mensagemErro(error.response.data);
@@ -57,8 +60,8 @@ function CadastroMarca() {
           headers: { 'Content-Type': 'application/json' },
         })
         .then(function (response) {
-          mensagemSucesso(`Marca ${marca} alterada com sucesso!`);
-          navigate(`/listagem-marcas`);
+          mensagemSucesso(`Localidade ${cidade} alterada com sucesso!`);
+          navigate(`/listagem-localidades`);
         })
         .catch(function (error) {
           mensagemErro(error.response.data);
@@ -72,7 +75,8 @@ function CadastroMarca() {
       setDados(response.data);
     });
     setId(dados.id);
-    setMarca(dados.marca);
+    setUf(dados.uf);
+    setCidade(dados.cidade);
   }
   }
 
@@ -84,18 +88,28 @@ function CadastroMarca() {
 
   return (
     <div className='container'>
-      <Card title='Cadastro de Marcas'>
+      <Card title='Cadastro de Localidades'>
         <div className='row'>
           <div className='col-lg-12'>
             <div className='bs-component'>
-              <FormGroup label='Marca: *' htmlFor='inputMarca'>
+              <FormGroup label='Uf: *' htmlFor='inputUf'>
                 <input
                   type='text'
-                  id='inputMarca'
-                  value={marca}
+                  id='inputUf'
+                  value={uf}
                   className='form-control'
-                  name='marca'
-                  onChange={(e) => setMarca(e.target.value)}
+                  name='uf'
+                  onChange={(e) => setUf(e.target.value)}
+                />
+              </FormGroup>
+              <FormGroup label='Cidade: *' htmlFor='inputCidade'>
+                <input
+                  type='text'
+                  id='inputCidade'
+                  value={cidade}
+                  className='form-control'
+                  name='cidade'
+                  onChange={(e) => setCidade(e.target.value)}
                 />
               </FormGroup>
               <Stack spacing={1} padding={1} direction='row'>
@@ -122,4 +136,4 @@ function CadastroMarca() {
   );
 }
 
-export default CadastroMarca;
+export default CadastroLocalidade;
