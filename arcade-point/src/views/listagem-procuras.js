@@ -86,11 +86,11 @@ function ListagemProcuras() {
                 <tbody>
                   {dados.map((dado) => (
                     <tr key={dado.id}>
-                      <td>{dado.produtoNome}</td>
+                      <td>{dado.nomeProduto}</td>
                       <td>{dado.descricao}</td>
-                      <td>{dado.categoriaNome}</td>
-                      <td>{dado.conservacaoNome}</td>
-                      <td>{dado.valorAproximado}</td>
+                      <td>{dado.nomeCategoria}</td>
+                      <td>{dado.nomeConservacao}</td>
+                      <td>{dado.valor}</td>
                       <td>
                         <Stack spacing={1} padding={0} direction='row'>
                           <IconButton

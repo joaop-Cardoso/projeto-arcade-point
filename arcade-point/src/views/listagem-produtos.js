@@ -78,6 +78,8 @@ function ListagemProdutos() {
                   <tr>
                     <th scope='col'>Nome</th>
                     <th scope='col'>Marca</th>
+                    <th scope='col'>Categoria</th>
+                    <th scope='col'>Conservação</th>
                     <th scope='col'>Ações</th>
                   </tr>
                 </thead>
@@ -86,6 +88,8 @@ function ListagemProdutos() {
                     <tr key={dado.id}>
                       <td>{dado.nome}</td>
                       <td>{dado.nomeMarca}</td>
+                      <td>{dado.nomeCategoria}</td>
+                      <td>{dado.nomeConservacao}</td>
                       <td>
                         <Stack spacing={1} padding={0} direction='row'>
                           <IconButton

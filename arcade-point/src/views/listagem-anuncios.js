@@ -14,9 +14,9 @@ import DeleteIcon from '@mui/icons-material/Delete';
 import EditIcon from '@mui/icons-material/Edit';
 
 import axios from 'axios';
-import { BASE_URL2 } from '../config/axios2';
+import { BASE_URL } from '../config/axios';
 
-const baseURL = `${BASE_URL2}/anuncios`;
+const baseURL = `${BASE_URL}/anuncios`;
 
 function ListagemAnuncios() {
   const navigate = useNavigate();
@@ -77,6 +77,7 @@ function ListagemAnuncios() {
                 <thead>
                   <tr>
                     <th scope='col'>Produto</th>
+                    <th scope='col'>Vendedor</th>
                     <th scope='col'>Categoria</th>
                     <th scope='col'>Conservação</th>
                     <th scope='col'>Valor</th>
@@ -85,9 +86,10 @@ function ListagemAnuncios() {
                 <tbody>
                   {dados.map((dado) => (
                     <tr key={dado.id}>
-                      <td>{dado.produtoNome}</td>
-                      <td>{dado.categoriaNome}</td>
-                      <td>{dado.conservacaoNome}</td>
+                      <td>{dado.nomeProduto}</td>
+                      <td>{dado.nomePessoa}</td>
+                      <td>{dado.nomeCategoria}</td>
+                      <td>{dado.nomeConservacao}</td>
                       <td>{dado.valor}</td>
                       <td>
                         <Stack spacing={1} padding={0} direction='row'>

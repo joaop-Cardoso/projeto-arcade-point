@@ -103,29 +103,29 @@ function Navbar(props) {
             />
           </ul>
 
-          <ul className='navbar-nav'>
+          {/* <ul className='navbar-nav'>
             <NavbarItem
               render='true'
               href='/Compra-l-anuncio'
               label='C-Anúncio'
             />
-          </ul>
+          </ul> */}
 
-          <ul className='navbar-nav'>
+          {/* <ul className='navbar-nav'>
             <NavbarItem
               render='true'
               href='/Compra-l-procura'
               label='C-Procura'
             />
-          </ul>
+          </ul> */}
 
-          <ul className='navbar-nav'>
+          {/* <ul className='navbar-nav'>
             <NavbarItem
               render='true'
               href='/Compra-l-leilao'
               label='C-Leilão'
             />
-          </ul>
+          </ul> */}
 
           
           {/* <ul className='navbar-nav'>

@@ -21,8 +21,8 @@ function CadastroProcura() {
   const baseURL = `${BASE_URL}/procuras`;
 
   const [id, setId] = useState('');
-  const [idProduto, setIdProduto] = useState(0);
-  const [valorAproximado, setValorAproximado] = useState('');
+  const [idProduto, setIdProduto] = useState('');
+  const [valor, setValor] = useState('');
 
   const [dados, setDados] = useState([]);
 
@@ -30,17 +30,17 @@ function CadastroProcura() {
     if (idParam == null) {
       setId('');
       setIdProduto(0);
-      setValorAproximado('')
+      setValor('')
     } else {
       setId(dados.id);
       setIdProduto(dados.idProduto);
-      setValorAproximado(dados.valorAproximado)
+      setValor(dados.valor)
     }
     navigate('/listagem-procuras');
   }
 
   async function salvar() {
-    let data = { id, idProduto, valorAproximado};
+    let data = { id, idProduto, valor};
     data = JSON.stringify(data);
     if (idParam == null) {
       await axios
@@ -76,7 +76,7 @@ function CadastroProcura() {
       });
       setId(dados.id);
       setIdProduto(dados.idProduto);
-      setValorAproximado(dados.valorAproximado);
+      setValor(dados.valor);
     }
   }
 
@@ -124,10 +124,10 @@ function CadastroProcura() {
                   type='text'
                   maxLength='11'
                   id='inputValorAproximado'
-                  value={valorAproximado}
+                  value={valor}
                   className='form-control'
                   name='ValorAproximado'
-                  onChange={(e) => setValorAproximado(e.target.value)}
+                  onChange={(e) => setValor(e.target.value)}
                 />
               </FormGroup>
               <Stack spacing={1} padding={1} direction='row'>

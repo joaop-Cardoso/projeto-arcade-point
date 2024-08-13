@@ -11,7 +11,6 @@ import { mensagemSucesso, mensagemErro } from '../components/toastr';
 import '../custom.css';
 
 import axios from 'axios';
-import { BASE_URL2 } from '../config/axios2';
 import { BASE_URL } from '../config/axios';
 
 function CadastroLeilao() {
@@ -19,12 +18,12 @@ function CadastroLeilao() {
 
   const navigate = useNavigate();
 
-  const baseURL = `${BASE_URL2}/leiloes`;
+  const baseURL = `${BASE_URL}/leiloes`;
 
   const [id, setId] = useState('');
-  const [idProduto, setIdProduto] = useState(0);
+  const [idProduto, setIdProduto] = useState('');
   const [valorInicial, setValorInicial] = useState('');
-  const [valorAumento, setValorAumento] = useState('');
+  const [valorIncremental, setValorIncremental] = useState('');
   const [dataInicio, setDataInicio] = useState('');
   const [horaInicio, setHoraInicio] = useState('');
   const [dataFim, setDataFim] = useState('');
@@ -38,7 +37,7 @@ function CadastroLeilao() {
       setId('');
       setIdProduto(0);
       setValorInicial('');
-      setValorAumento('');
+      setValorIncremental('');
       setDataInicio('');
       setHoraInicio('');
       setDataFim('');
@@ -47,7 +46,7 @@ function CadastroLeilao() {
       setId(dados.id);
       setIdProduto(dados.idProduto);
       setValorInicial(dados.valorInicial);
-      setValorAumento(dados.valorAumento);
+      setValorIncremental(dados.valorIncremental);
       setDataInicio(dados.dataInicio);
       setHoraInicio(dados.horaInicio);
       setDataFim(dados.dataFim);
@@ -57,7 +56,7 @@ function CadastroLeilao() {
   }
 
   async function salvar() {
-    let data = { id, idProduto, valorInicial, valorAumento, dataInicio, horaInicio, dataInicio, dataFim };
+    let data = { id, idProduto, valorInicial, valorIncremental, dataInicio, horaInicio, dataInicio, dataFim };
     data = JSON.stringify(data);
     if (idParam == null) {
       await axios
@@ -94,7 +93,7 @@ function CadastroLeilao() {
     setId(dados.id);
     setIdProduto(dados.idProduto);
     setValorInicial(dados.valorInicial);
-    setValorAumento(dados.valorAumento);
+    setValorIncremental(dados.valorIncremental);
     setDataInicio(dados.dataInicio);
     setHoraInicio(dados.horaInicio);
     setDataFim(dados.dataFim);
@@ -105,7 +104,7 @@ function CadastroLeilao() {
   const [dadosProdutos, setDadosProdutos] = React.useState(null);
 
   useEffect(() => {
-    axios.get(`${BASE_URL2}/produtos`).then((response) => {
+    axios.get(`${BASE_URL}/produtos`).then((response) => {
       setDadosProdutos(response.data);
     });
   }, []);
@@ -152,15 +151,15 @@ function CadastroLeilao() {
                   onChange={(e) => setValorInicial(e.target.value)}
                 />
               </FormGroup>
-              <FormGroup label='Valor Aumento: *' htmlFor='inputValorAumento'>
+              <FormGroup label='Valor Incremental: *' htmlFor='inputValorIncremental'>
                 <input
                   type='text'
                   maxLength='11'
-                  id='inputValorAumento'
-                  value={valorAumento}
+                  id='inputValorIncremental'
+                  value={valorIncremental}
                   className='form-control'
-                  name='Valor Aumento'
-                  onChange={(e) => setValorAumento(e.target.value)}
+                  name='Valor Incemental'
+                  onChange={(e) => setValorIncremental(e.target.value)}
                 />
               </FormGroup>
               <FormGroup label='Data Início: *' htmlFor='inputDataInicio'>

@@ -21,7 +21,7 @@ function CadastroAnuncio() {
   const baseURL = `${BASE_URL}/anuncios`;
 
   const [id, setId] = useState('');
-  const [idProduto, setIdProduto] = useState(0);
+  const [idProduto, setIdProduto] = useState('');
   const [valor, setValor] = useState('');
 
 

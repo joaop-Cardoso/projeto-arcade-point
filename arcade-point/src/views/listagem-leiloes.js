@@ -86,11 +86,11 @@ function ListagemLeiloes() {
                 <tbody>
                   {dados.map((dado) => (
                     <tr key={dado.id}>
-                      <td>{dado.produtoNome}</td>
-                      <td>{dado.categoriaNome}</td>
-                      <td>{dado.conservacaoNome}</td>
+                      <td>{dado.nomeProduto}</td>
+                      <td>{dado.nomeCategoria}</td>
+                      <td>{dado.nomeConservacao}</td>
                       <td>{dado.valorInicial}</td>
-                      <td>{dado.valorAumento}</td>
+                      <td>{dado.valorIncremental}</td>
                       <td>
                         <Stack spacing={1} padding={0} direction='row'>
                           <IconButton
